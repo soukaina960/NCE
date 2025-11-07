@@ -1,174 +1,188 @@
-<!-- Section Services -->
-<section class="services" id="services">
-  <div class="container">
-    <!-- En-tête de section -->
-    <div class="services-header">
-      <h2 class="section-title">NOS SERVICES</h2>
-      <p class="section-subtitle">
-        Nous vous proposons une solution pour votre sécurité et votre confort.
-      </p>
-      <p class="section-description">
-        Nous proposons une gamme complète de services de serrurerie et de solutions de sécurité 
-        conçues pour protéger ce qui compte le plus : votre famille, votre entreprise et votre tranquillité d'esprit.
-      </p>
-      <div class="section-divider"></div>
-    </div>
-
-    <!-- Grille des services -->
-    <div class="services-grid">
-      <!-- Service 1 -->
-      <div class="service-card">
-        <div class="service-image service-image-1">
-          <div class="service-overlay">
-            <div class="service-icon">
-              <i class="fas fa-video"></i>
-            </div>
+<!-- Section Services - Pleine Largeur -->
+<section class="services-fullwidth" id="services">
+  <!-- Titre de la section -->
+  <div class="section-header">
+    <h2 class="section-title">NOS SERVICES</h2>
+    <div class="section-divider"></div>
+  </div>
+    
+  <!-- Service 1 - Interphone Vidéo -->
+  <div class="service-fullwidth" id="service-1">
+    <div class="service-bg"></div>
+    <div class="service-overlay"></div>
+    <div class="container">
+      <div class="service-content">
+        <div class="service-info">
+          <div class="service-header">
+            <h2 class="service-title">Systèmes d'interphone vidéo</h2>
           </div>
-        </div>
-        <div class="service-content">
-          <h3 class="service-title">Systèmes d'interphone vidéo</h3>
           <p class="service-description">
             Technologies de communication et de vision avancées pour un niveau de sécurité et de confort optimal.
           </p>
-          <ul class="service-features">
-            <li><i class="fas fa-check"></i> Contrôle d'accès sécurisé</li>
-            <li><i class="fas fa-check"></i> Vidéo HD et audio bidirectionnel</li>
-            <li><i class="fas fa-check"></i> Accès via application mobile</li>
-          </ul>
-          <button class="service-btn" (click)="openServiceModal('interphone')">
-            En savoir plus
-          </button>
-        </div>
-      </div>
-
-      <!-- Service 2 -->
-      <div class="service-card">
-        <div class="service-image service-image-2">
-          <div class="service-overlay">
-            <div class="service-icon">
-              <i class="fas fa-shield-alt"></i>
+          <div class="service-features">
+            <div class="feature">
+              <i class="fas fa-check"></i>
+              <span>Contrôle d'accès sécurisé</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-check"></i>
+              <span>Vidéo HD et audio bidirectionnel</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-check"></i>
+              <span>Accès via application mobile</span>
             </div>
           </div>
+          <div class="service-actions">
+            <button class="btn-primary" (click)="takeAppointment('Interphone Vidéo')">
+              <i class="fas fa-calendar-check"></i>
+              Demander un devis
+            </button>
+            <button class="btn-secondary" (click)="showServiceDetails(1)">
+              <i class="fas fa-info-circle"></i>
+              Plus d'informations
+            </button>
+          </div>
         </div>
-        <div class="service-content">
-          <h3 class="service-title">Système de sécurité</h3>
+        <div class="service-visual">
+          <div class="service-icon"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service 2 - Système de Sécurité -->
+  <div class="service-fullwidth" id="service-2">
+    <div class="service-bg"></div>
+    <div class="service-overlay"></div>
+    <div class="container">
+      <div class="service-content reverse">
+        <div class="service-info">
+          <div class="service-header">
+            <h2 class="service-title">Système de sécurité</h2>
+          </div>
           <p class="service-description">
             Solutions complètes d'alarme et de surveillance pour des alertes instantanées et un contrôle total.
           </p>
-          <ul class="service-features">
-            <li><i class="fas fa-check"></i> Capteurs et détecteurs haute sensibilité</li>
-            <li><i class="fas fa-check"></i> Sirènes puissantes</li>
-            <li><i class="fas fa-check"></i> Application mobile dédiée</li>
-          </ul>
-          <button class="service-btn" (click)="openServiceModal('securite')">
-            En savoir plus
-          </button>
-        </div>
-      </div>
-
-      <!-- Service 3 -->
-      <div class="service-card">
-        <div class="service-image service-image-3">
-          <div class="service-overlay">
-            <div class="service-icon">
-              <i class="fas fa-bolt"></i>
+          <div class="service-features">
+            <div class="feature">
+              <i class="fas fa-check"></i>
+              <span>Capteurs haute sensibilité</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-check"></i>
+              <span>Sirènes puissantes</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-check"></i>
+              <span>Application mobile dédiée</span>
             </div>
           </div>
-        </div>
-        <div class="service-content">
-          <h3 class="service-title">Systèmes intelligents de contrôle de l'énergie</h3>
-          <p class="service-description">
-            Contrôle intelligent et haute efficacité pour une gestion de l'énergie et un confort optimal.
-          </p>
-          <ul class="service-features">
-            <li><i class="fas fa-check"></i> Gestion énergétique intelligente</li>
-            <li><i class="fas fa-check"></i> Automatisation résidentielle</li>
-            <li><i class="fas fa-check"></i> Optimisation de la consommation</li>
-          </ul>
-          <button class="service-btn" (click)="openServiceModal('energie')">
-            En savoir plus
-          </button>
-        </div>
-      </div>
-
-      <!-- Service 4 -->
-      <div class="service-card">
-        <div class="service-image service-image-4">
-          <div class="service-overlay">
-            <div class="service-icon">
-              <i class="fas fa-door-closed"></i>
-            </div>
+          <div class="service-actions">
+            <button class="btn-primary" (click)="takeAppointment('Système de Sécurité')">
+              <i class="fas fa-calendar-check"></i>
+              Demander un devis
+            </button>
+            <button class="btn-secondary" (click)="showServiceDetails(2)">
+              <i class="fas fa-info-circle"></i>
+              Plus d'informations
+            </button>
           </div>
         </div>
-        <div class="service-content">
-          <h3 class="service-title">Contrôle d'accès</h3>
-          <p class="service-description">
-            Contrôle d'accès sécurisé et pratique avec vidéo HD, audio bidirectionnel et accès mobile.
-          </p>
-          <ul class="service-features">
-            <li><i class="fas fa-check"></i> Portiers vidéo haute définition</li>
-            <li><i class="fas fa-check"></i> Moniteurs intérieurs</li>
-            <li><i class="fas fa-check"></i> Enregistreurs réseau</li>
-          </ul>
-          <button class="service-btn" (click)="openServiceModal('controle-acces')">
-            En savoir plus
-          </button>
+        <div class="service-visual">
+          <div class="service-icon"></div>
         </div>
       </div>
+    </div>
+  </div>
 
-     
+  <!-- Service 3 - Contrôle d'Énergie -->
+  <div class="service-fullwidth" id="service-3">
+    <div class="service-bg"></div>
+    <div class="service-overlay"></div>
+    <div class="container">
+      <div class="service-content">
+        <div class="service-info">
+          <div class="service-header">
+            <h2 class="service-title">Contrôle intelligent de l'énergie</h2>
+          </div>
+          <p class="service-description">
+            Gestion intelligente et haute efficacité pour une optimisation de la consommation énergétique.
+          </p>
+          <div class="service-features">
+            <div class="feature">
+              <i class="fas fa-check"></i>
+              <span>Gestion énergétique intelligente</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-check"></i>
+              <span>Automatisation résidentielle</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-check"></i>
+              <span>Optimisation de la consommation</span>
+            </div>
+          </div>
+          <div class="service-actions">
+            <button class="btn-primary" (click)="takeAppointment('Contrôle Énergie')">
+              <i class="fas fa-calendar-check"></i>
+              Demander un devis
+            </button>
+            <button class="btn-secondary" (click)="showServiceDetails(3)">
+              <i class="fas fa-info-circle"></i>
+              Plus d'informations
+            </button>
+          </div>
+        </div>
+        <div class="service-visual">
+          <div class="service-icon"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  
-    
+  <!-- Service 4 - Contrôle d'Accès -->
+  <div class="service-fullwidth" id="service-4">
+    <div class="service-bg"></div>
+    <div class="service-overlay"></div>
+    <div class="container">
+      <div class="service-content reverse">
+        <div class="service-info">
+          <div class="service-header">
+            <h2 class="service-title">Contrôle d'accès intelligent</h2>
+          </div>
+          <p class="service-description">
+            Solutions de contrôle d'accès sécurisées avec gestion centralisée et traçabilité complète.
+          </p>
+          <div class="service-features">
+            <div class="feature">
+              <i class="fas fa-check"></i>
+              <span>Portiers vidéo haute définition</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-check"></i>
+              <span>Moniteurs intérieurs</span>
+            </div>
+            <div class="feature">
+              <i class="fas fa-check"></i>
+              <span>Enregistreurs réseau</span>
+            </div>
+          </div>
+          <div class="service-actions">
+            <button class="btn-primary" (click)="takeAppointment('Contrôle Accès')">
+              <i class="fas fa-calendar-check"></i>
+              Demander un devis
+            </button>
+            <button class="btn-secondary" (click)="showServiceDetails(4)">
+              <i class="fas fa-info-circle"></i>
+              Plus d'informations
+            </button>
+          </div>
+        </div>
+        <div class="service-visual">
+          <div class="service-icon"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-
-<!-- Modal pour les détails des services -->
-<div class="service-modal" [class.active]="isModalOpen">
-  <div class="modal-backdrop" (click)="closeServiceModal()"></div>
-  <div class="modal-content">
-    <button class="modal-close" (click)="closeServiceModal()">
-      <i class="fas fa-times"></i>
-    </button>
-    
-    <div class="modal-header" *ngIf="currentService">
-      <div class="modal-icon">
-        <i [class]="currentService.icon"></i>
-      </div>
-      <h2>{{currentService.title}}</h2>
-    </div>
-    
-    <div class="modal-body" *ngIf="currentService">
-      <p class="modal-description">{{currentService.fullDescription}}</p>
-      
-      <div class="modal-features">
-        <h3>Ce service comprend :</h3>
-        <ul>
-          <li *ngFor="let feature of currentService.features">
-            <i class="fas fa-check"></i> {{feature}}
-          </li>
-        </ul>
-      </div>
-      
-      <div class="modal-technologies">
-        <h3>Équipements utilisés :</h3>
-        <div class="tech-tags">
-          <span class="tech-tag" *ngFor="let tech of currentService.technologies">
-            {{tech}}
-          </span>
-        </div>
-      </div>
-    </div>
-    
-    <div class="modal-footer" *ngIf="currentService">
-      <button class="btn-outline" (click)="closeServiceModal()">
-        Fermer
-      </button>
-      <button class="btn-primary" (click)="takeAppointment()">
-        <i class="fas fa-calendar-check"></i>
-        Prendre rendez-vous
-      </button>
-    </div>
-  </div>
-</div>

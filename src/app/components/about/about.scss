@@ -52,7 +52,7 @@
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 20px;
-  background: linear-gradient(135deg, #1D2B57 0%, #E53935 50%, #0057B8 100%);
+  background: linear-gradient(135deg, #121212 0%, #131212 50%, #0057B8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -63,7 +63,7 @@
 .section-divider {
   width: 100px;
   height: 4px;
-  background: linear-gradient(90deg, #E53935 0%, #0057B8 100%);
+  background: linear-gradient(90deg, #050505 0%, #0057B8 100%);
   border-radius: 2px;
 }
 
@@ -74,7 +74,7 @@
 .about-description .lead {
   font-size: 1.4rem;
   font-weight: 600;
-  color: #E53935;
+  color: #5f4c4c;
   margin-bottom: 25px;
   line-height: 1.6;
 }
@@ -91,7 +91,7 @@
   font-weight: 700;
 }
 
-/* Features Grid */
+/* Features Grid avec Animations d'Icônes */
 .features-grid {
   display: flex;
   flex-direction: column;
@@ -110,6 +110,23 @@
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   box-shadow: 0 5px 20px rgba(29, 43, 87, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(229, 57, 53, 0.05), transparent);
+  transition: left 0.6s ease;
+}
+
+.feature-item:hover::before {
+  left: 100%;
 }
 
 .feature-item:hover {
@@ -119,6 +136,7 @@
   box-shadow: 0 10px 30px rgba(29, 43, 87, 0.15);
 }
 
+/* Conteneur d'icônes avec animations différentes */
 .feature-icon {
   background: linear-gradient(135deg, #E53935, #F44336);
   color: #FFFFFF;
@@ -131,6 +149,114 @@
   font-size: 1.5rem;
   flex-shrink: 0;
   box-shadow: 0 5px 15px rgba(229, 57, 53, 0.3);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Animation pour le bouclier (sécurité) */
+.feature-item:nth-child(1) .feature-icon {
+  animation: pulseShield 2s ease-in-out infinite;
+}
+
+@keyframes pulseShield {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 5px 15px rgba(229, 57, 53, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(229, 57, 53, 0.5);
+  }
+}
+
+.feature-item:nth-child(1):hover .feature-icon {
+  animation: rotateShield 0.6s ease;
+}
+
+@keyframes rotateShield {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(10deg) scale(1.1); }
+  100% { transform: rotate(0deg) scale(1.05); }
+}
+
+/* Animation pour l'ampoule (conseils) */
+.feature-item:nth-child(2) .feature-icon {
+  animation: glowBulb 3s ease-in-out infinite;
+}
+
+@keyframes glowBulb {
+  0%, 100% {
+    background: linear-gradient(135deg, #E53935, #F44336);
+    box-shadow: 0 5px 15px rgba(229, 57, 53, 0.3);
+  }
+  50% {
+    background: linear-gradient(135deg, #1c1c1b, #d2d1d0);
+
+  }
+}
+
+.feature-item:nth-child(2):hover .feature-icon {
+  animation: bounceBulb 0.8s ease;
+}
+
+@keyframes bounceBulb {
+  0%, 20%, 60%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  80% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Animation pour l'éclair (solutions) */
+.feature-item:nth-child(3) .feature-icon {
+  animation: flashBolt 4s ease-in-out infinite;
+}
+
+@keyframes flashBolt {
+  0%, 90%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  95% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+.feature-item:nth-child(3):hover .feature-icon {
+  animation: zapBolt 0.5s ease;
+}
+
+@keyframes zapBolt {
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.2) rotate(-15deg); }
+  50% { transform: scale(1.1) rotate(15deg); }
+  75% { transform: scale(1.2) rotate(-10deg); }
+  100% { transform: scale(1.05) rotate(0deg); }
+}
+
+/* Effet de vague sur toutes les icônes au hover */
+.feature-icon::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.6s ease;
+}
+
+.feature-item:hover .feature-icon::before {
+  width: 100px;
+  height: 100px;
 }
 
 .feature-content h3 {
@@ -138,6 +264,11 @@
   font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 8px;
+  transition: transform 0.3s ease;
+}
+
+.feature-item:hover .feature-content h3 {
+  transform: translateX(5px);
 }
 
 .feature-content p {
@@ -145,6 +276,11 @@
   font-size: 0.95rem;
   line-height: 1.6;
   margin: 0;
+  transition: transform 0.3s ease 0.1s;
+}
+
+.feature-item:hover .feature-content p {
+  transform: translateX(5px);
 }
 
 /* CTA Section */
@@ -155,10 +291,30 @@
   border: 1px solid rgba(29, 43, 87, 0.1);
   backdrop-filter: blur(10px);
   box-shadow: 0 10px 30px rgba(29, 43, 87, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-cta::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(229, 57, 53, 0.02), transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
 }
 
 .contact-info {
   margin-bottom: 25px;
+  position: relative;
+  z-index: 2;
 }
 
 .phone-number {
@@ -171,6 +327,19 @@
 .phone-number i {
   color: #E53935;
   font-size: 1.5rem;
+  animation: ringPhone 4s ease-in-out infinite;
+}
+
+@keyframes ringPhone {
+  0%, 90%, 100% {
+    transform: rotate(0deg);
+  }
+  92%, 96% {
+    transform: rotate(-15deg);
+  }
+  94%, 98% {
+    transform: rotate(15deg);
+  }
 }
 
 .phone-number span {
@@ -203,12 +372,46 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   box-shadow: 0 5px 20px rgba(229, 57, 53, 0.3);
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.cta-button:hover::before {
+  left: 100%;
 }
 
 .cta-button:hover {
   background: linear-gradient(135deg, #1D2B57 0%, #0057B8 100%);
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(29, 43, 87, 0.4);
+}
+
+.cta-button i {
+  animation: bounceCalendar 2s ease-in-out infinite;
+}
+
+@keyframes bounceCalendar {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
 }
 
 /* Colonne visuelle */
@@ -221,17 +424,17 @@
   background-image: url('../assest/img/smart-home-entrance-modern-door-lock-with-digital-display-illuminated-controls_107062-61250(1).jpg');
   background-size: cover;
   background-position: center;
-  height: 700px;
+  height: 500px;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
   margin-bottom: 40px;
+  transition: all 0.3s ease;
 }
 
 .image-container:hover {
   transform: translateY(-5px);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
 }
 
 .image-overlay {
@@ -250,11 +453,22 @@
 .experience-badge {
   background: linear-gradient(135deg, #E53935, #F44336);
   color: #FFFFFF;
-  padding: 40px 45px;
+  padding: 20px 25px;
   border-radius: 15px;
-  margin-bottom: 40px;
   text-align: center;
   box-shadow: 0 10px 30px rgba(229, 57, 53, 0.4);
+  animation: pulseBadge 3s ease-in-out infinite;
+}
+
+@keyframes pulseBadge {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 10px 30px rgba(229, 57, 53, 0.4);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(229, 57, 53, 0.6);
+  }
 }
 
 .experience-badge .years {
@@ -271,7 +485,7 @@
   letter-spacing: 1px;
 }
 
-/* Statistiques */
+/* Statistiques avec animations */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -287,6 +501,24 @@
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   box-shadow: 0 5px 20px rgba(29, 43, 87, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #E53935, #0057B8);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover::before {
+  transform: scaleX(1);
 }
 
 .stat-item:hover {
@@ -301,6 +533,16 @@
   font-size: 2rem;
   font-weight: 800;
   margin-bottom: 8px;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover .stat-number {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #E53935, #0057B8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .stat-label {
@@ -309,6 +551,11 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.stat-item:hover .stat-label {
+  color: #0057B8;
 }
 
 /* Responsive */
@@ -349,6 +596,11 @@
   .image-container {
     height: 400px;
   }
+  
+  /* Réduire les animations sur mobile */
+  .feature-icon {
+    animation-duration: 3s;
+  }
 }
 
 @media (max-width: 480px) {
@@ -383,5 +635,10 @@
   
   .experience-badge .years {
     font-size: 2rem;
+  }
+  
+  /* Désactiver certaines animations sur mobile pour les performances */
+  .about-cta::before {
+    animation: none;
   }
 }
