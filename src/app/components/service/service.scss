@@ -1,0 +1,674 @@
+// Variables
+$primary: #2e2b2b;
+$secondary: #d32f2f;
+$dark: #171616;
+$light: #f8f9fa;
+$transition: all 0.3s ease;
+$shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+$border-radius: 30px;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin mobile {
+  @media (max-width: 992px) {
+    @content;
+  }
+}
+
+// Images de fond pour les services (URLs d'images libres de droits)
+$service-images: (
+  1: "../assest/img/close-up-hand-using-device.jpg",
+  2: "../assest/img/2008.i211.010_video surveillance security cameras realistic composition 3.jpg",
+  3: "../assest/img/man-electrical-technician-working-switchboard-with-fuses-uses-tablet.jpg",
+  4: "../assest/img/close-up-fingerprint-reader.jpg",
+  5: "https://images.unsplash.com/photo-1558618047-7c8c7b0b1b0e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+  6: "https://images.unsplash.com/photo-1558618047-7c8c7b0b1b0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+);
+
+// Section Services
+.services {
+  padding: 100px 0;
+  background: linear-gradient(135deg, $light 0%, #ffffff 100%);
+  position: relative;
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+}
+
+// En-tête de section
+.services-header {
+  text-align: center;
+  margin-bottom: 60px;
+  
+  .section-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: $dark;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    @include mobile {
+      font-size: 2.2rem;
+    }
+  }
+  
+  .section-subtitle {
+    font-size: 1.4rem;
+    color: $primary;
+    margin-bottom: 15px;
+    font-weight: 600;
+    
+    @include mobile {
+      font-size: 1.2rem;
+    }
+  }
+  
+  .section-description {
+    font-size: 1.1rem;
+    color: lighten($dark, 20%);
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+    
+    @include mobile {
+      font-size: 1rem;
+    }
+  }
+  
+  .section-divider {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, $primary, $secondary);
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+}
+
+// Grille des services
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-bottom: 80px;
+  
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+// Carte de service
+.service-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: $shadow;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    
+    .service-image::before {
+      transform: scale(1.05);
+    }
+    
+    .service-overlay {
+      opacity: 1;
+    }
+    
+    .service-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+  }
+}
+
+.service-image {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 0.5s ease;
+  }
+}
+
+// Définition des images de fond pour chaque service
+@for $i from 1 through 6 {
+  .service-image-#{$i}::before {
+    background-image: url(map-get($service-images, $i));
+  }
+}
+
+.service-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba($primary, 0.8), rgba($secondary, 0.8));
+  @include flex-center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.service-icon {
+  width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 50%;
+  @include flex-center;
+  transition: all 0.4s ease;
+  
+  i {
+    font-size: 2rem;
+    color: $primary;
+  }
+}
+
+.service-content {
+  padding: 25px;
+}
+
+.service-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: $dark;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.service-description {
+  color: lighten($dark, 25%);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.service-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 25px;
+  
+  li {
+    padding: 8px 0;
+    color: lighten($dark, 20%);
+    font-size: 0.9rem;
+    
+    i {
+      color: $primary;
+      margin-right: 10px;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.service-btn {
+  background: linear-gradient(135deg, $primary, darken($primary, 10%));
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: $border-radius;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  width: 100%;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba($primary, 0.3);
+  }
+}
+
+// Section Rendez-vous
+.appointment-section {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  border-radius: 20px;
+  padding: 50px;
+  color: white;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  
+  @include mobile {
+    padding: 30px 20px;
+  }
+}
+
+.appointment-content {
+  @include flex-between;
+  gap: 40px;
+  
+  @include mobile {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.appointment-info {
+  flex: 1;
+  
+  h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    
+    @include mobile {
+      font-size: 1.6rem;
+    }
+  }
+  
+  .appointment-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
+    
+    @include mobile {
+      font-size: 1rem;
+    }
+  }
+}
+
+.contact-info {
+  .contact-item {
+    @include flex-center;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    text-align: left;
+    
+    @include mobile {
+      text-align: center;
+      flex-direction: column;
+    }
+    
+    i {
+      font-size: 1.5rem;
+      color: $primary;
+      margin-right: 15px;
+      margin-top: 5px;
+      
+      @include mobile {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    }
+    
+    strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+    }
+    
+    p {
+      margin: 0;
+      opacity: 0.9;
+    }
+    
+    .emergency-note {
+      color: #e74c3c;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+  }
+}
+
+.appointment-cta {
+  @include flex-center;
+  flex-direction: column;
+  gap: 15px;
+  
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.appointment-btn, .emergency-btn {
+  padding: 15px 30px;
+  border-radius: $border-radius;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  font-size: 1rem;
+  min-width: 250px;
+  @include flex-center;
+  gap: 10px;
+  
+  @include mobile {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+.appointment-btn {
+  background: $primary;
+  color: white;
+  
+  &:hover {
+    background: darken($primary, 10%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba($primary, 0.3);
+  }
+}
+
+.emergency-btn {
+  background: transparent;
+  color: white;
+  border: 2px solid #e74c3c;
+  
+  &:hover {
+    background: #e74c3c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(#e74c3c, 0.3);
+  }
+}
+
+// Modal des services
+.service-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    
+    .modal-content {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+.modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  
+  @include mobile {
+    padding: 30px 20px;
+    width: 95%;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: lighten($dark, 40%);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  width: 40px;
+  height: 40px;
+  @include flex-center;
+  border-radius: 50%;
+  
+  &:hover {
+    color: $secondary;
+    background: rgba($secondary, 0.1);
+  }
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-right: 40px;
+  
+  .modal-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, $primary, $secondary);
+    border-radius: 50%;
+    @include flex-center;
+    margin: 0 auto 20px;
+    
+    i {
+      font-size: 1.8rem;
+      color: white;
+    }
+  }
+  
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $dark;
+    margin: 0;
+    
+    @include mobile {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.modal-body {
+  .modal-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: lighten($dark, 20%);
+    margin-bottom: 30px;
+  }
+  
+  .modal-features {
+    margin-bottom: 30px;
+    
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: $dark;
+      margin-bottom: 15px;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      
+      li {
+        padding: 8px 0;
+        color: lighten($dark, 20%);
+        
+        i {
+          color: $primary;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  
+  .modal-technologies {
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: $dark;
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tech-tag {
+  background: rgba($primary, 0.1);
+  color: $primary;
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid rgba($primary, 0.2);
+}
+
+.modal-footer {
+  @include flex-between;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  
+  @include mobile {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+.btn-outline, .btn-primary {
+  padding: 12px 30px;
+  border-radius: $border-radius;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid;
+  font-size: 0.9rem;
+  
+  @include mobile {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.btn-outline {
+  background: transparent;
+  color: $primary;
+  border-color: $primary;
+  
+  &:hover {
+    background: $primary;
+    color: white;
+  }
+}
+
+.btn-primary {
+  background: $primary;
+  color: white;
+  border-color: $primary;
+  
+  &:hover {
+    background: darken($primary, 10%);
+    border-color: darken($primary, 10%);
+    transform: translateY(-2px);
+  }
+  
+  i {
+    margin-right: 8px;
+  }
+}
+
+// Animations
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.service-card {
+  animation: slideInUp 0.6s ease-out;
+  
+  @for $i from 1 through 6 {
+    &:nth-child(#{$i}) {
+      animation-delay: $i * 0.1s;
+      animation-fill-mode: both;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 480px) {
+  .services {
+    padding: 60px 0;
+  }
+  
+  .services-header {
+    margin-bottom: 40px;
+    
+    .section-title {
+      font-size: 1.8rem;
+    }
+    
+    .section-subtitle {
+      font-size: 1.1rem;
+    }
+  }
+  
+  .service-card {
+    padding: 0;
+  }
+  
+  .service-content {
+    padding: 20px;
+  }
+  
+  .appointment-btn, .emergency-btn {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+}

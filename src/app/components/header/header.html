@@ -1,0 +1,100 @@
+<header id="header" [class.scrolled]="isScrolled">
+  <div class="container header-container">
+    <div class="logo">
+      <i></i>
+    </div>
+    
+    <div class="mobile-menu" (click)="toggleMenu()">
+      <i class="fas" [class.fa-bars]="!isMenuActive" [class.fa-times]="isMenuActive"></i>
+    </div>
+    
+    <nav [class.active]="isMenuActive">
+      <ul>
+        <li>
+          <a (click)="scrollToSection('home')" class="nav-link">
+            Accueil
+          </a>
+        </li>
+        <li>
+          <a (click)="scrollToSection('about')" class="nav-link">
+              Services
+          </a>
+        </li>
+        <li>
+          <a (click)="scrollToSection('services')" class="nav-link">
+             Produit
+          </a>
+        </li>
+        <li>
+          <a (click)="scrollToSection('contact')" class="nav-link">
+            Contact
+          </a>
+        </li>
+        <li>
+          <a class="btn nav-link" (click)="onInscription()">
+            inscription
+          </a>
+        </li>
+        <li>
+          <a class="btn nav-link" (click)="onConnexion()">
+            connexion
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Section Hero avec effets WOW -->
+<section class="hero" id="home">
+  <div class="hero-background">
+    <div class="background-slide slide-1" [class.active]="currentSlide === 0"></div>
+    <div class="background-slide slide-2" [class.active]="currentSlide === 1"></div>
+  </div>
+  
+  <!-- Effet particules -->
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+  
+  <div class="hero-content">
+    <h1 class="hero-title">Solutions électriques modernes et efficaces</h1>
+    <h2 class="hero-subtitle">Services intégrés dans le domaine de l'électricité et de l'énergie</h2>
+    <p class="hero-description">
+      Équipements électriques, installation et maintenance, avec rapidité et fiabilité au meilleur prix.
+    </p>
+    
+    <div class="hero-buttons">
+      <a (click)="scrollToSection('contact')" class="hero-btn">
+        Obtenir un devis gratuit
+      </a>
+      <a (click)="scrollToSection('services')" class="hero-btn secondary">
+        Découvrir nos services
+      </a>
+    </div>
+  </div>
+  
+  <!-- Indicateur de scroll -->
+  <div class="scroll-indicator">
+    <div class="mouse"></div>
+  </div>
+</section>
