@@ -1,0 +1,387 @@
+/* Section À propos */
+.about {
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 50%, #FFFFFF 100%);
+}
+
+.about::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(229, 57, 53, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 87, 184, 0.05) 0%, transparent 40%);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.about .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* Colonne texte */
+.about-text {
+  color: #111111;
+}
+
+.section-header {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #1D2B57 0%, #E53935 50%, #0057B8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.section-divider {
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #E53935 0%, #0057B8 100%);
+  border-radius: 2px;
+}
+
+.about-description {
+  margin-bottom: 50px;
+}
+
+.about-description .lead {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #E53935;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.about-description p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  color: #4A4A4A;
+}
+
+.about-description strong {
+  color: #1D2B57;
+  font-weight: 700;
+}
+
+/* Features Grid */
+.features-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  border: 1px solid rgba(29, 43, 87, 0.1);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 20px rgba(29, 43, 87, 0.1);
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(229, 57, 53, 0.3);
+  transform: translateX(10px);
+  box-shadow: 0 10px 30px rgba(29, 43, 87, 0.15);
+}
+
+.feature-icon {
+  background: linear-gradient(135deg, #E53935, #F44336);
+  color: #FFFFFF;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  box-shadow: 0 5px 15px rgba(229, 57, 53, 0.3);
+}
+
+.feature-content h3 {
+  color: #1D2B57;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.feature-content p {
+  color: #4A4A4A;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* CTA Section */
+.about-cta {
+  background: linear-gradient(135deg, rgba(29, 43, 87, 0.05), rgba(0, 87, 184, 0.05));
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid rgba(29, 43, 87, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(29, 43, 87, 0.1);
+}
+
+.contact-info {
+  margin-bottom: 25px;
+}
+
+.phone-number {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.phone-number i {
+  color: #E53935;
+  font-size: 1.5rem;
+}
+
+.phone-number span {
+  color: #1D2B57;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.contact-text {
+  color: #4A4A4A;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.cta-button {
+  background: linear-gradient(135deg, #E53935 0%, #F44336 100%);
+  color: #FFFFFF;
+  border: none;
+  padding: 18px 35px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 5px 20px rgba(229, 57, 53, 0.3);
+}
+
+.cta-button:hover {
+  background: linear-gradient(135deg, #1D2B57 0%, #0057B8 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(29, 43, 87, 0.4);
+}
+
+/* Colonne visuelle */
+.about-visual {
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  background-image: url('../assest/img/smart-home-entrance-modern-door-lock-with-digital-display-illuminated-controls_107062-61250(1).jpg');
+  background-size: cover;
+  background-position: center;
+  height: 700px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  margin-bottom: 40px;
+}
+
+.image-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(229, 57, 53, 0.1), rgba(29, 43, 87, 0.2));
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 30px;
+}
+
+.experience-badge {
+  background: linear-gradient(135deg, #E53935, #F44336);
+  color: #FFFFFF;
+  padding: 40px 45px;
+  border-radius: 15px;
+  margin-bottom: 40px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(229, 57, 53, 0.4);
+}
+
+.experience-badge .years {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.experience-badge .text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Statistiques */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.stat-item {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 25px 20px;
+  border-radius: 15px;
+  text-align: center;
+  border: 1px solid rgba(29, 43, 87, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(29, 43, 87, 0.1);
+}
+
+.stat-item:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(0, 87, 184, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(29, 43, 87, 0.15);
+}
+
+.stat-number {
+  color: #E53935;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  color: #1D2B57;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  
+  .about-visual {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    padding: 60px 0;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .feature-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .feature-icon {
+    align-self: center;
+  }
+  
+  .image-container {
+    height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-content {
+    gap: 40px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .about-description .lead {
+    font-size: 1.2rem;
+  }
+  
+  .phone-number span {
+    font-size: 1.2rem;
+  }
+  
+  .cta-button {
+    padding: 15px 25px;
+    font-size: 1rem;
+  }
+  
+  .image-container {
+    height: 300px;
+  }
+  
+  .experience-badge {
+    padding: 15px 20px;
+  }
+  
+  .experience-badge .years {
+    font-size: 2rem;
+  }
+}
