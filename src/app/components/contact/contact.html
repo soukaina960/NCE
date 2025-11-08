@@ -1,0 +1,257 @@
+<!-- contact.html -->
+<!-- Section Contact -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <!-- En-tête de section -->
+    <div class="contact-header">
+      <h2 class="section-title">CONTACTEZ-NOUS</h2>
+      <p class="section-subtitle">
+        Prêt à sécuriser votre espace ? Discutons de votre projet
+      </p>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="contact-content">
+      <!-- Colonne informations de contact -->
+      <div class="contact-info">
+        <div class="info-card">
+          <h3>Prendre contact</h3>
+          <p class="info-description">
+            Notre équipe d'experts est à votre disposition pour répondre à toutes vos questions 
+            et vous accompagner dans le choix des solutions de sécurité adaptées à vos besoins.
+          </p>
+
+          <div class="contact-methods">
+            <!-- Téléphone -->
+            <div class="contact-method">
+              <div class="method-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="method-info">
+                <h4>Téléphone</h4>
+                <a href="tel:+212662385179" class="contact-link">+212 662-385179</a>
+                <p class="method-description">Disponible du lundi au dimanche</p>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="contact-method">
+              <div class="method-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="method-info">
+                <h4>Email</h4>
+                <a href="mailto:contact@nce-energie.ma" class="contact-link">nceenergiemaroc@gmail.com
+</a>
+                <p class="method-description">Réponse sous 24h</p>
+              </div>
+            </div>
+
+            <!-- Adresse -->
+            <div class="contact-method">
+              <div class="method-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="method-info">
+                <h4>Adresse</h4>
+                <p class="contact-text">Maroc</p>
+                <p class="method-description">Intervention sur tout le territoire</p>
+              </div>
+            </div>
+
+            <!-- Horaires -->
+            <div class="contact-method">
+              <div class="method-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+             
+            </div>
+          </div>
+
+          <!-- Réseaux sociaux -->
+          <div class="social-links">
+            <h4>Suivez-nous</h4>
+            <div class="social-icons">
+              <a href="#" class="social-link" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-link" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="social-link" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://wa.me/212662385179" class="social-link" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonne formulaire de contact -->
+      <div class="contact-form">
+        <div class="form-card">
+          <h3>Demande de devis gratuit</h3>
+          <p class="form-description">
+            Remplissez ce formulaire et nous vous recontacterons dans les plus brefs délais
+          </p>
+
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+            <!-- Service concerné -->
+            <div class="form-group">
+              <label for="service">Service concerné *</label>
+              <select id="service" formControlName="service" class="form-select">
+                <option value="">Sélectionnez un service</option>
+                <option value="interphone">Systèmes d'interphone vidéo</option>
+                <option value="securite">Système de sécurité</option>
+                <option value="energie">Contrôle intelligent de l'énergie</option>
+                <option value="acces">Contrôle d'accès intelligent</option>
+                <option value="autre">Autre</option>
+              </select>
+              <div class="error-message" *ngIf="service?.touched && service?.errors?.['required']">
+                Ce champ est obligatoire
+              </div>
+            </div>
+
+            <!-- Informations personnelles -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">Prénom *</label>
+                <input 
+                  type="text" 
+                  id="firstName" 
+                  formControlName="firstName" 
+                  class="form-input"
+                  placeholder="Votre prénom"
+                >
+                <div class="error-message" *ngIf="firstName?.touched && firstName?.errors?.['required']">
+                  Le prénom est obligatoire
+                </div>
+                <div class="error-message" *ngIf="firstName?.touched && firstName?.errors?.['minlength']">
+                  Minimum 2 caractères requis
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Nom *</label>
+                <input 
+                  type="text" 
+                  id="lastName" 
+                  formControlName="lastName" 
+                  class="form-input"
+                  placeholder="Votre nom"
+                >
+                <div class="error-message" *ngIf="lastName?.touched && lastName?.errors?.['required']">
+                  Le nom est obligatoire
+                </div>
+                <div class="error-message" *ngIf="lastName?.touched && lastName?.errors?.['minlength']">
+                  Minimum 2 caractères requis
+                </div>
+              </div>
+            </div>
+
+            <!-- Coordonnées -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  formControlName="email" 
+                  class="form-input"
+                  placeholder="votre@email.com"
+                >
+                <div class="error-message" *ngIf="email?.touched && email?.errors?.['required']">
+                  L'email est obligatoire
+                </div>
+                <div class="error-message" *ngIf="email?.touched && email?.errors?.['email']">
+                  Format d'email invalide
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="phone">Téléphone *</label>
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  formControlName="phone" 
+                  class="form-input"
+                  placeholder="+212 XXX-XXXXXX"
+                >
+                <div class="error-message" *ngIf="phone?.touched && phone?.errors?.['required']">
+                  Le téléphone est obligatoire
+                </div>
+                <div class="error-message" *ngIf="phone?.touched && phone?.errors?.['pattern']">
+                  Format de téléphone invalide
+                </div>
+              </div>
+            </div>
+
+            <!-- Message -->
+            <div class="form-group">
+              <label for="message">Description de votre projet *</label>
+              <textarea 
+                id="message" 
+                formControlName="message" 
+                class="form-textarea"
+                rows="5"
+                placeholder="Décrivez votre projet, vos besoins spécifiques, la superficie à sécuriser..."
+              ></textarea>
+              <div class="error-message" *ngIf="message?.touched && message?.errors?.['required']">
+                La description est obligatoire
+              </div>
+              <div class="error-message" *ngIf="message?.touched && message?.errors?.['minlength']">
+                Minimum 10 caractères requis
+              </div>
+            </div>
+
+            <!-- Type de projet -->
+            <div class="form-group">
+              <label>Type de projet</label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" formControlName="projectType" value="residential">
+                  <span class="radio-custom"></span>
+                  Résidentiel (Maison/Appartement)
+                </label>
+                <label class="radio-label">
+                  <input type="radio" formControlName="projectType" value="commercial">
+                  <span class="radio-custom"></span>
+                  Commercial (Entreprise/Magasin)
+                </label>
+                <label class="radio-label">
+                  <input type="radio" formControlName="projectType" value="industrial">
+                  <span class="radio-custom"></span>
+                  Industriel (Usine/Entrepôt)
+                </label>
+              </div>
+            </div>
+
+           
+
+            <!-- Soumission -->
+            <div class="form-actions">
+              <button 
+                type="submit" 
+                class="submit-btn"
+                [disabled]="contactForm.invalid || isSubmitting"
+                [class.loading]="isSubmitting"
+              >
+                <span class="btn-text" *ngIf="!isSubmitting">
+                  <i class="fas fa-paper-plane"></i>
+                  Envoyer la demande
+                </span>
+                <span class="btn-text" *ngIf="isSubmitting">
+                  <i class="fas fa-spinner fa-spin"></i>
+                  Envoi en cours...
+                </span>
+              </button>
+              <p class="form-note">
+                * Champs obligatoires. Vos données sont confidentielles.
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -8,11 +8,11 @@
 .section-header {
   text-align: center;
   padding: 80px 20px 40px;
- 
+  background: #f8f9fa; /* Fond clair pour contraster */
 }
 
 .section-title {
-  color: #3b3232;
+  color: #2c3e50; /* Couleur sombre professionnelle */
   font-size: 3.5rem;
   font-weight: 800;
   margin-bottom: 20px;
@@ -23,7 +23,7 @@
 .section-divider {
   width: 80px;
   height: 4px;
-  background: #FFFFFF;
+  background: #e74c3c; /* Rouge pour l'accent */
   margin: 0 auto;
   border-radius: 2px;
 }
@@ -198,10 +198,15 @@ $service-images: (
   border-radius: 8px;
   font-weight: 600;
   font-size: 1rem;
-  
-  // Assurer que les boutons sont cliquables
   position: relative;
   z-index: 10;
+  text-decoration: none;
+  
+  /* Pour s'assurer que le texte n'est pas sélectionnable */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .btn-primary {
@@ -236,6 +241,12 @@ button {
   background: none;
   border: none;
   font-family: inherit;
+  cursor: pointer;
+  
+  /* Reset pour tous les navigateurs */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 /* Visual du service avec numéros */
@@ -281,10 +292,7 @@ button {
 
 /* Définition CORRECTE des numéros */
 $service-numbers: (
-  1: '01',
-  2: '02', 
-  3: '03',
-  4: '04'
+ 
 );
 
 @each $id, $number in $service-numbers {
@@ -293,8 +301,44 @@ $service-numbers: (
   }
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
+/* ============================ */
+/* RESPONSIVE DESIGN COMPLET */
+/* ============================ */
+
+/* Grands écrans (1200px et plus) */
+@media (min-width: 1200px) {
+  .service-content {
+    gap: 80px;
+    padding: 120px 20px;
+  }
+  
+  .service-title {
+    font-size: 3.2rem;
+  }
+}
+
+/* Tablettes paysage et petits écrans (1024px - 1199px) */
+@media (max-width: 1199px) and (min-width: 1024px) {
+  .service-content {
+    gap: 50px;
+    padding: 90px 20px;
+  }
+  
+  .service-title {
+    font-size: 2.8rem;
+  }
+  
+  .service-description {
+    font-size: 1.1rem;
+  }
+}
+
+/* Tablettes portrait (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .section-header {
+    padding: 60px 20px 30px;
+  }
+  
   .section-title {
     font-size: 2.8rem;
   }
@@ -303,6 +347,7 @@ $service-numbers: (
     grid-template-columns: 1fr;
     gap: 40px;
     text-align: center;
+    padding: 80px 20px;
   }
   
   .service-content.reverse {
@@ -313,52 +358,145 @@ $service-numbers: (
     font-size: 2.5rem;
   }
   
+  .service-description {
+    font-size: 1.1rem;
+  }
+  
   .service-icon {
-    width: 150px;
-    height: 150px;
-    font-size: 3rem;
+    width: 180px;
+    height: 180px;
+    font-size: 3.5rem;
   }
   
   .service-actions {
     justify-content: center;
   }
+  
+  .service-fullwidth {
+    margin-bottom: 120px;
+  }
 }
 
-@media (max-width: 768px) {
+/* Mobiles paysage et petites tablettes (576px - 767px) */
+@media (max-width: 767px) and (min-width: 576px) {
   .section-header {
-    padding: 60px 20px 30px;
+    padding: 50px 20px 25px;
   }
   
   .section-title {
-    font-size: 2.2rem;
+    font-size: 2.3rem;
   }
   
   .service-fullwidth {
-    min-height: 80vh;
+    min-height: 70vh;
     margin-bottom: 100px;
   }
   
   .service-content {
     padding: 60px 20px;
-    gap: 30px;
+    gap: 35px;
   }
   
   .service-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
   
   .service-description {
     font-size: 1.1rem;
+    margin-bottom: 30px;
+  }
+  
+  .service-features {
+    gap: 10px;
+    margin-bottom: 35px;
+  }
+  
+  .feature {
+    padding: 10px 15px;
+  }
+  
+  .service-actions {
+    gap: 12px;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 14px 25px;
+    font-size: 0.95rem;
+  }
+  
+  .service-icon {
+    width: 140px;
+    height: 140px;
+    font-size: 3rem;
+  }
+}
+
+/* Mobiles portrait (375px - 575px) */
+@media (max-width: 575px) and (min-width: 375px) {
+  .section-header {
+    padding: 40px 15px 20px;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+  
+  .section-divider {
+    width: 60px;
+  }
+  
+  .service-fullwidth {
+    min-height: 60vh;
+    margin-bottom: 80px;
+  }
+  
+  .service-content {
+    padding: 50px 15px;
+    gap: 30px;
+  }
+  
+  .service-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .service-description {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+  
+  .service-features {
+    gap: 8px;
+    margin-bottom: 30px;
+  }
+  
+  .feature {
+    padding: 8px 12px;
+    gap: 10px;
+  }
+  
+  .feature i {
+    padding: 6px;
+    font-size: 0.9rem;
+  }
+  
+  .feature span {
+    font-size: 0.9rem;
   }
   
   .service-actions {
     flex-direction: column;
+    gap: 10px;
   }
   
   .btn-primary,
   .btn-secondary {
     width: 100%;
     justify-content: center;
+    padding: 14px 20px;
+    font-size: 0.9rem;
   }
   
   .service-icon {
@@ -366,15 +504,30 @@ $service-numbers: (
     height: 120px;
     font-size: 2.5rem;
   }
+  
+  .service-visual {
+    padding: 20px;
+  }
 }
 
-@media (max-width: 480px) {
+/* Très petits mobiles (moins de 375px) */
+@media (max-width: 374px) {
   .section-header {
-    padding: 40px 20px 20px;
+    padding: 30px 10px 15px;
   }
   
   .section-title {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
+  }
+  
+  .service-fullwidth {
+    min-height: 50vh;
+    margin-bottom: 60px;
+  }
+  
+  .service-content {
+    padding: 40px 10px;
+    gap: 25px;
   }
   
   .service-title {
@@ -382,7 +535,21 @@ $service-numbers: (
   }
   
   .service-description {
-    font-size: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .feature {
+    padding: 6px 10px;
+  }
+  
+  .feature span {
+    font-size: 0.85rem;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 12px 16px;
+    font-size: 0.85rem;
   }
   
   .service-icon {
@@ -390,10 +557,70 @@ $service-numbers: (
     height: 100px;
     font-size: 2rem;
   }
+}
+
+/* Gestion de l'orientation paysage sur mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .service-fullwidth {
+    min-height: 150vh; /* Plus de hauteur en mode paysage */
+  }
+  
+  .service-content {
+    padding: 40px 20px;
+  }
+}
+
+/* Support des écrans haute résolution */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .service-bg {
+    /* Images plus nettes pour les écrans Retina */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Mode contraste élevé pour l'accessibilité */
+@media (prefers-contrast: high) {
+  .service-title,
+  .feature span {
+    color: #FFFFFF !important;
+  }
+  
+  .btn-primary {
+    background: #000000;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+  }
+}
+
+/* Mode réduit de mouvement pour l'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .service-bg,
+  .service-fullwidth:hover .service-bg,
+  .feature,
+  .feature:hover,
+  .btn-primary,
+  .btn-secondary,
+  .service-icon,
+  .service-fullwidth:hover .service-icon {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* Impression */
+@media print {
+  .service-fullwidth {
+    break-inside: avoid;
+    margin-bottom: 100px;
+  }
+  
+  .service-bg::before {
+    background: rgba(0, 0, 0, 0.8);
+  }
   
   .btn-primary,
   .btn-secondary {
-    padding: 14px 20px;
-    font-size: 0.9rem;
+    display: none;
   }
 }
