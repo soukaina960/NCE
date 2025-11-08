@@ -4,7 +4,7 @@ $rouge-vif: #E53935;
 $blanc-pur: #FFFFFF;
 $bleu-moyen: #204C8C;
 $gris-fonce: #2C2C2C;
-$bleu-clair: #082441;
+$bleu-clair: #16284C;
 
 // Variables dérivées
 $primary-color: $bleu-fonce;
@@ -30,6 +30,9 @@ $background-light: lighten($bleu-fonce, 75%);
 }
 
 @mixin responsive($breakpoint) {
+  @if $breakpoint == desktop {
+    @media (min-width: 1024px) { @content; }
+  }
   @if $breakpoint == tablet {
     @media (max-width: 1023px) and (min-width: 768px) { @content; }
   }
@@ -43,22 +46,33 @@ $background-light: lighten($bleu-fonce, 75%);
 
 /* Section Contact */
 .contact-section {
-  padding: 100px 0;
+  padding: 80px 0;
   position: relative;
   overflow: hidden;
   background: linear-gradient(135deg, $background-light 0%, lighten($bleu-clair, 45%) 100%);
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-      radial-gradient(circle at 20% 80%, rgba($bleu-moyen, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba($rouge-vif, 0.05) 0%, transparent 50%);
-    pointer-events: none;
+  // Version PC - Arrière-plan plus élaboré
+  @include responsive(desktop) {
+    padding: 100px 0;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba($bleu-moyen, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba($rouge-vif, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+  }
+
+  // Version mobile - Arrière-plan simplifié
+  @include responsive(mobile) {
+    padding: 50px 0;
+    background: linear-gradient(135deg, $background-light 0%, lighten($bleu-clair, 50%) 100%);
   }
 
   .container {
@@ -71,44 +85,67 @@ $background-light: lighten($bleu-fonce, 75%);
     @include responsive(mobile) {
       padding: 0 15px;
     }
+
+    @include responsive(small-mobile) {
+      padding: 0 10px;
+    }
   }
 }
 
 /* En-tête de section */
 .contact-header {
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
+
+  // Version PC
+  @include responsive(desktop) {
+    margin-bottom: 80px;
+  }
 
   .section-title {
     color: $bleu-fonce;
-    font-size: 3.5rem;
     font-weight: 800;
     margin-bottom: 20px;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 
+    // Version PC
+    @include responsive(desktop) {
+      font-size: 3.5rem;
+      letter-spacing: 2px;
+    }
+
+    // Version tablette
     @include responsive(tablet) {
       font-size: 3rem;
     }
 
+    // Version mobile
     @include responsive(mobile) {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
+      letter-spacing: 0.5px;
     }
 
     @include responsive(small-mobile) {
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
   }
 
   .section-subtitle {
     color: $bleu-moyen;
-    font-size: 1.3rem;
     font-weight: 300;
     margin-bottom: 30px;
     line-height: 1.5;
 
+    // Version PC
+    @include responsive(desktop) {
+      font-size: 1.3rem;
+    }
+
+    // Version mobile
     @include responsive(mobile) {
       font-size: 1.1rem;
+      margin-bottom: 20px;
     }
   }
 
@@ -118,53 +155,71 @@ $background-light: lighten($bleu-fonce, 75%);
     background: $rouge-vif;
     margin: 0 auto;
     border-radius: 2px;
+
+    @include responsive(mobile) {
+      width: 60px;
+      height: 3px;
+    }
   }
 }
 
 /* Contenu principal */
 .contact-content {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 60px;
+  gap: 40px;
   align-items: start;
 
+  // Version PC - Layout deux colonnes
+  @include responsive(desktop) {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+  }
+
+  // Version tablette
   @include responsive(tablet) {
     grid-template-columns: 1fr;
     gap: 40px;
   }
 
+  // Version mobile
   @include responsive(mobile) {
+    grid-template-columns: 1fr;
     gap: 30px;
   }
 }
 
 /* Colonne informations */
 .contact-info {
-  position: sticky;
-  top: 100px;
-
-  @include responsive(tablet) {
-    position: static;
+  // Version PC - Position sticky pour la navigation
+  @include responsive(desktop) {
+    position: sticky;
+    top: 100px;
   }
 
   .info-card {
     background: $blanc-pur;
-    border-radius: 20px;
-    padding: 40px;
+    border-radius: 16px;
+    padding: 30px;
     @include card-shadow;
     border: 1px solid $border-color;
 
+    // Version PC
+    @include responsive(desktop) {
+      border-radius: 20px;
+      padding: 40px;
+    }
+
     @include responsive(mobile) {
       padding: 25px;
+      border-radius: 12px;
     }
 
     @include responsive(small-mobile) {
-      padding: 20px;
+      padding: 20px 15px;
     }
 
     h3 {
       color: $bleu-fonce;
-      font-size: 1.8rem;
       font-weight: 700;
       margin-bottom: 15px;
       position: relative;
@@ -180,6 +235,12 @@ $background-light: lighten($bleu-fonce, 75%);
         border-radius: 2px;
       }
 
+      // Version PC
+      @include responsive(desktop) {
+        font-size: 1.8rem;
+      }
+
+      // Version mobile
       @include responsive(mobile) {
         font-size: 1.5rem;
       }
@@ -187,10 +248,21 @@ $background-light: lighten($bleu-fonce, 75%);
 
     .info-description {
       color: $text-dark;
-      font-size: 1rem;
       line-height: 1.6;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       margin-top: 25px;
+
+      // Version PC
+      @include responsive(desktop) {
+        font-size: 1rem;
+        margin-bottom: 40px;
+      }
+
+      // Version mobile
+      @include responsive(mobile) {
+        font-size: 0.95rem;
+        margin-bottom: 30px;
+      }
     }
   }
 }
@@ -199,69 +271,121 @@ $background-light: lighten($bleu-fonce, 75%);
 .contact-methods {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  margin-bottom: 40px;
+  gap: 20px;
+  margin-bottom: 30px;
+
+  // Version PC
+  @include responsive(desktop) {
+    gap: 25px;
+    margin-bottom: 40px;
+  }
 
   .contact-method {
     display: flex;
     align-items: flex-start;
     gap: 15px;
-    padding: 20px;
+    padding: 18px;
     background: rgba($bleu-fonce, 0.02);
     border-radius: 12px;
     border: 1px solid $border-color;
     @include transition;
 
+    // Version PC
+    @include responsive(desktop) {
+      padding: 20px;
+    }
+
     @include responsive(mobile) {
       padding: 15px;
+      gap: 12px;
     }
 
     &:hover {
       background: rgba($bleu-fonce, 0.05);
       border-color: $bleu-clair;
-      transform: translateY(-2px);
-      @include card-shadow;
+      
+      // Version PC seulement - Effets hover
+      @include responsive(desktop) {
+        transform: translateY(-2px);
+        @include card-shadow;
+      }
     }
 
     .method-icon {
       background: rgba($rouge-vif, 0.1);
       color: $rouge-vif;
-      width: 50px;
-      height: 50px;
       border-radius: 10px;
       @include flex-center;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       flex-shrink: 0;
       @include transition;
+
+      // Version PC
+      @include responsive(desktop) {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+
+      // Version mobile
+      @include responsive(mobile) {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+      }
 
       @include responsive(small-mobile) {
         width: 40px;
         height: 40px;
-        font-size: 1rem;
       }
     }
 
     &:hover .method-icon {
       background: rgba($rouge-vif, 0.2);
-      transform: scale(1.1);
+      
+      // Version PC seulement
+      @include responsive(desktop) {
+        transform: scale(1.1);
+      }
     }
 
     .method-info {
+      flex: 1;
+      
       h4 {
         color: $bleu-fonce;
-        font-size: 1.1rem;
         font-weight: 600;
         margin-bottom: 5px;
+
+        // Version PC
+        @include responsive(desktop) {
+          font-size: 1.1rem;
+        }
+
+        // Version mobile
+        @include responsive(mobile) {
+          font-size: 1rem;
+        }
       }
 
       .contact-link {
         color: $bleu-moyen;
         text-decoration: none;
-        font-size: 1rem;
         font-weight: 500;
         @include transition;
         display: block;
         margin-bottom: 5px;
+        word-break: break-all;
+
+        // Version PC
+        @include responsive(desktop) {
+          font-size: 1rem;
+        }
+
+        // Version mobile
+        @include responsive(mobile) {
+          font-size: 0.95rem;
+        }
 
         &:hover {
           color: $rouge-vif;
@@ -271,15 +395,33 @@ $background-light: lighten($bleu-fonce, 75%);
 
       .contact-text {
         color: $bleu-fonce;
-        font-size: 1rem;
         font-weight: 500;
         margin: 0 0 5px 0;
+
+        // Version PC
+        @include responsive(desktop) {
+          font-size: 1rem;
+        }
+
+        // Version mobile
+        @include responsive(mobile) {
+          font-size: 0.95rem;
+        }
       }
 
       .method-description {
         color: $text-light;
-        font-size: 0.9rem;
         margin: 0;
+
+        // Version PC
+        @include responsive(desktop) {
+          font-size: 0.9rem;
+        }
+
+        // Version mobile
+        @include responsive(mobile) {
+          font-size: 0.85rem;
+        }
       }
     }
   }
@@ -288,38 +430,71 @@ $background-light: lighten($bleu-fonce, 75%);
 /* Réseaux sociaux */
 .social-links {
   border-top: 1px solid $border-color;
-  padding-top: 30px;
+  padding-top: 25px;
+
+  // Version PC
+  @include responsive(desktop) {
+    padding-top: 30px;
+  }
 
   h4 {
     color: $bleu-fonce;
-    font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 15px;
+
+    // Version PC
+    @include responsive(desktop) {
+      font-size: 1.1rem;
+    }
+
+    // Version mobile
+    @include responsive(mobile) {
+      font-size: 1rem;
+    }
   }
 
   .social-icons {
     display: flex;
-    gap: 12px;
+    gap: 10px;
+
+    // Version PC
+    @include responsive(desktop) {
+      gap: 12px;
+    }
 
     .social-link {
       background: rgba($bleu-fonce, 0.1);
       color: $bleu-fonce;
-      width: 45px;
-      height: 45px;
       border-radius: 10px;
       @include flex-center;
       text-decoration: none;
       @include transition;
 
+      // Version PC
+      @include responsive(desktop) {
+        width: 45px;
+        height: 45px;
+      }
+
+      // Version mobile
+      @include responsive(mobile) {
+        width: 42px;
+        height: 42px;
+      }
+
       @include responsive(small-mobile) {
-        width: 40px;
-        height: 40px;
+        width: 38px;
+        height: 38px;
       }
 
       &:hover {
         background: $rouge-vif;
         color: $blanc-pur;
-        transform: translateY(-2px);
+        
+        // Version PC seulement
+        @include responsive(desktop) {
+          transform: translateY(-2px);
+        }
         
         &.fa-whatsapp {
           background: #25D366;
@@ -342,22 +517,28 @@ $background-light: lighten($bleu-fonce, 75%);
 .contact-form {
   .form-card {
     background: $blanc-pur;
-    border-radius: 20px;
-    padding: 40px;
+    border-radius: 16px;
+    padding: 30px;
     @include card-shadow;
     border: 1px solid $border-color;
 
+    // Version PC
+    @include responsive(desktop) {
+      border-radius: 20px;
+      padding: 40px;
+    }
+
     @include responsive(mobile) {
       padding: 25px;
+      border-radius: 12px;
     }
 
     @include responsive(small-mobile) {
-      padding: 20px;
+      padding: 20px 15px;
     }
 
     h3 {
       color: $bleu-fonce;
-      font-size: 1.8rem;
       font-weight: 700;
       margin-bottom: 10px;
       position: relative;
@@ -373,6 +554,12 @@ $background-light: lighten($bleu-fonce, 75%);
         border-radius: 2px;
       }
 
+      // Version PC
+      @include responsive(desktop) {
+        font-size: 1.8rem;
+      }
+
+      // Version mobile
       @include responsive(mobile) {
         font-size: 1.5rem;
       }
@@ -380,36 +567,65 @@ $background-light: lighten($bleu-fonce, 75%);
 
     .form-description {
       color: $text-dark;
-      font-size: 1rem;
       line-height: 1.6;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       margin-top: 25px;
+
+      // Version PC
+      @include responsive(desktop) {
+        font-size: 1rem;
+        margin-bottom: 30px;
+      }
+
+      // Version mobile
+      @include responsive(mobile) {
+        font-size: 0.95rem;
+      }
     }
   }
 }
 
 /* Styles du formulaire */
 .form-group {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   position: relative;
+
+  // Version PC
+  @include responsive(desktop) {
+    margin-bottom: 25px;
+  }
 
   label {
     display: block;
     color: $bleu-fonce;
-    font-size: 0.9rem;
     font-weight: 600;
     margin-bottom: 8px;
+
+    // Version PC
+    @include responsive(desktop) {
+      font-size: 0.9rem;
+    }
+
+    // Version mobile
+    @include responsive(mobile) {
+      font-size: 0.85rem;
+    }
   }
 }
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 15px;
 
+  // Version PC - Deux colonnes
+  @include responsive(desktop) {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  // Version mobile - Une colonne
   @include responsive(mobile) {
     grid-template-columns: 1fr;
-    gap: 0;
   }
 }
 
@@ -426,6 +642,12 @@ $background-light: lighten($bleu-fonce, 75%);
   @include transition;
   font-family: inherit;
 
+  // Version mobile
+  @include responsive(mobile) {
+    padding: 10px 14px;
+    font-size: 16px; // Évite le zoom sur iOS
+  }
+
   &:focus {
     outline: none;
     border-color: $rouge-vif;
@@ -438,11 +660,6 @@ $background-light: lighten($bleu-fonce, 75%);
 
   &::placeholder {
     color: $text-light;
-  }
-
-  @include responsive(mobile) {
-    padding: 10px 14px;
-    font-size: 0.9rem;
   }
 }
 
@@ -464,7 +681,12 @@ $background-light: lighten($bleu-fonce, 75%);
 .radio-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+
+  // Version PC
+  @include responsive(desktop) {
+    gap: 12px;
+  }
 
   .radio-label {
     display: flex;
@@ -476,6 +698,11 @@ $background-light: lighten($bleu-fonce, 75%);
     padding: 10px;
     border-radius: 8px;
     @include transition(background);
+
+    // Version mobile
+    @include responsive(mobile) {
+      padding: 8px;
+    }
 
     &:hover {
       background: rgba($bleu-fonce, 0.05);
@@ -521,10 +748,8 @@ $background-light: lighten($bleu-fonce, 75%);
     background: $rouge-vif;
     color: $blanc-pur;
     border: none;
-    padding: 16px 40px;
     border-radius: 8px;
     font-weight: 600;
-    font-size: 1rem;
     cursor: pointer;
     @include transition;
     display: inline-flex;
@@ -536,10 +761,26 @@ $background-light: lighten($bleu-fonce, 75%);
     position: relative;
     overflow: hidden;
 
+    // Version PC
+    @include responsive(desktop) {
+      padding: 16px 40px;
+      font-size: 1rem;
+    }
+
+    // Version mobile
+    @include responsive(mobile) {
+      padding: 14px 30px;
+      font-size: 1rem;
+    }
+
     &:hover:not(:disabled) {
       background: darken($rouge-vif, 10%);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba($rouge-vif, 0.3);
+      
+      // Version PC seulement
+      @include responsive(desktop) {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba($rouge-vif, 0.3);
+      }
     }
 
     &:disabled {
@@ -555,11 +796,6 @@ $background-light: lighten($bleu-fonce, 75%);
       .btn-text {
         opacity: 0.7;
       }
-    }
-
-    @include responsive(mobile) {
-      padding: 14px 30px;
-      font-size: 0.9rem;
     }
   }
 
@@ -628,10 +864,12 @@ $background-light: lighten($bleu-fonce, 75%);
   }
 }
 
-/* Éléments avec animation de pulse */
-.contact-method:hover .method-icon,
-.submit-btn:not(:disabled) {
-  animation: pulse 2s infinite;
+/* Éléments avec animation de pulse - Version PC seulement */
+@include responsive(desktop) {
+  .contact-method:hover .method-icon,
+  .submit-btn:not(:disabled) {
+    animation: pulse 2s infinite;
+  }
 }
 
 /* Mode contraste élevé pour l'accessibilité */
@@ -713,11 +951,15 @@ $background-light: lighten($bleu-fonce, 75%);
 /* Orientation paysage sur mobile */
 @media (max-height: 500px) and (orientation: landscape) {
   .contact-section {
-    padding: 40px 0;
+    padding: 30px 0;
   }
 
   .contact-content {
-    gap: 30px;
+    gap: 20px;
+  }
+  
+  .contact-header {
+    margin-bottom: 30px;
   }
 }
 
@@ -725,5 +967,47 @@ $background-light: lighten($bleu-fonce, 75%);
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .contact-section::before {
     transform: scale(1.1);
+  }
+}
+
+/* Améliorations spécifiques mobile */
+@include responsive(mobile) {
+  // Empêcher le zoom sur les inputs iOS
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea {
+    font-size: 16px;
+  }
+  
+  // Améliorer l'espacement tactile
+  .contact-method,
+  .social-link,
+  .submit-btn {
+    min-height: 44px;
+  }
+  
+  // Optimiser l'espacement global
+  .contact-methods {
+    gap: 15px;
+  }
+}
+
+/* Améliorations spécifiques PC */
+@include responsive(desktop) {
+  // Effets de hover plus élaborés
+  .info-card,
+  .form-card {
+    &:hover {
+      transform: translateY(-5px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+  }
+  
+  // Meilleure lisibilité pour les longs textes
+  .info-description,
+  .form-description {
+    line-height: 1.7;
   }
 }

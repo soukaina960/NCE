@@ -7,23 +7,23 @@
 /* En-tête de section */
 .section-header {
   text-align: center;
-  padding: 80px 20px 40px;
-  background: #f8f9fa; /* Fond clair pour contraster */
+  padding: 40px 20px 30px;
+  background: #f8f9fa;
 }
 
 .section-title {
-  color: #2c3e50; /* Couleur sombre professionnelle */
-  font-size: 3.5rem;
+  color: #2c3e50;
+  font-size: 2rem;
   font-weight: 800;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 .section-divider {
-  width: 80px;
+  width: 60px;
   height: 4px;
-  background: #e74c3c; /* Rouge pour l'accent */
+  background: #e74c3c;
   margin: 0 auto;
   border-radius: 2px;
 }
@@ -40,11 +40,11 @@ $service-images: (
 .service-fullwidth {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 500px;
   display: flex;
   align-items: center;
   overflow: hidden;
-  margin-bottom: 150px;
+  margin-bottom: 80px;
 }
 
 /* Application CORRECTE des images de fond */
@@ -95,46 +95,38 @@ $service-images: (
 .service-content {
   position: relative;
   z-index: 3;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   align-items: center;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 100px 20px;
+  padding: 60px 20px;
 }
 
-.service-content.reverse {
-  direction: rtl;
-}
-
-.service-content.reverse > * {
-  direction: ltr;
-}
-
-/* Informations du service */
 .service-info {
-  padding: 40px 0;
+  padding: 20px 0;
+  text-align: center;
 }
 
 .service-header {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .service-title {
   color: #FFFFFF;
-  font-size: 3rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 25px;
+  line-height: 1.2;
+  margin-bottom: 20px;
 }
 
 .service-description {
   color: #E0E0E0;
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 1.6;
-  margin-bottom: 35px;
+  margin-bottom: 25px;
   font-weight: 300;
 }
 
@@ -142,15 +134,15 @@ $service-images: (
 .service-features {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
-  margin-bottom: 40px;
+  gap: 10px;
+  margin-bottom: 30px;
 }
 
 .feature {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 18px;
+  padding: 10px 15px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -165,9 +157,9 @@ $service-images: (
 
 .feature i {
   color: #FFFFFF;
-  font-size: 1rem;
+  font-size: 0.9rem;
   background: rgba(255, 255, 255, 0.2);
-  padding: 8px;
+  padding: 6px;
   border-radius: 6px;
   transition: all 0.3s ease;
 }
@@ -178,15 +170,17 @@ $service-images: (
 
 .feature span {
   color: #FFFFFF;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 400;
 }
 
 /* Actions - Styles pour les boutons */
 .service-actions {
   display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 300px;
 }
 
 .btn-primary, .btn-secondary {
@@ -194,15 +188,15 @@ $service-images: (
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
+  justify-content: center;
   border: none;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem;
   position: relative;
   z-index: 10;
   text-decoration: none;
-  
-  /* Pour s'assurer que le texte n'est pas sélectionnable */
+  padding: 14px 20px;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -212,8 +206,7 @@ $service-images: (
 .btn-primary {
   background: #FFFFFF;
   color: #000000;
-  padding: 16px 32px;
-  gap: 10px;
+  gap: 8px;
 }
 
 .btn-primary:hover {
@@ -226,7 +219,6 @@ $service-images: (
   background: transparent;
   color: #FFFFFF;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  padding: 15px 30px;
   gap: 8px;
 }
 
@@ -242,8 +234,6 @@ button {
   border: none;
   font-family: inherit;
   cursor: pointer;
-  
-  /* Reset pour tous les navigateurs */
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -254,14 +244,14 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 30px;
+  padding: 20px;
 }
 
 .service-icon {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  width: 200px;
-  height: 200px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -279,7 +269,7 @@ button {
 
 .service-icon {
   color: #FFFFFF;
-  font-size: 4rem;
+  font-size: 2.5rem;
   font-weight: 700;
   opacity: 0.9;
   transition: all 0.3s ease;
@@ -292,7 +282,7 @@ button {
 
 /* Définition CORRECTE des numéros */
 $service-numbers: (
- 
+  /* Vos numéros ici */
 );
 
 @each $id, $number in $service-numbers {
@@ -302,99 +292,27 @@ $service-numbers: (
 }
 
 /* ============================ */
-/* RESPONSIVE DESIGN COMPLET */
+/* RESPONSIVE DESIGN - MOBILE FIRST */
 /* ============================ */
 
-/* Grands écrans (1200px et plus) */
-@media (min-width: 1200px) {
-  .service-content {
-    gap: 80px;
-    padding: 120px 20px;
-  }
-  
-  .service-title {
-    font-size: 3.2rem;
-  }
-}
-
-/* Tablettes paysage et petits écrans (1024px - 1199px) */
-@media (max-width: 1199px) and (min-width: 1024px) {
-  .service-content {
-    gap: 50px;
-    padding: 90px 20px;
-  }
-  
-  .service-title {
-    font-size: 2.8rem;
-  }
-  
-  .service-description {
-    font-size: 1.1rem;
-  }
-}
-
-/* Tablettes portrait (768px - 1023px) */
-@media (max-width: 1023px) and (min-width: 768px) {
+/* Tablettes portrait (768px et plus) */
+@media (min-width: 768px) {
   .section-header {
-    padding: 60px 20px 30px;
+    padding: 60px 20px 40px;
   }
   
   .section-title {
     font-size: 2.8rem;
   }
   
-  .service-content {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    text-align: center;
-    padding: 80px 20px;
-  }
-  
-  .service-content.reverse {
-    direction: ltr;
-  }
-  
-  .service-title {
-    font-size: 2.5rem;
-  }
-  
-  .service-description {
-    font-size: 1.1rem;
-  }
-  
-  .service-icon {
-    width: 180px;
-    height: 180px;
-    font-size: 3.5rem;
-  }
-  
-  .service-actions {
-    justify-content: center;
-  }
-  
   .service-fullwidth {
-    margin-bottom: 120px;
-  }
-}
-
-/* Mobiles paysage et petites tablettes (576px - 767px) */
-@media (max-width: 767px) and (min-width: 576px) {
-  .section-header {
-    padding: 50px 20px 25px;
-  }
-  
-  .section-title {
-    font-size: 2.3rem;
-  }
-  
-  .service-fullwidth {
-    min-height: 70vh;
+    min-height: 600px;
     margin-bottom: 100px;
   }
   
   .service-content {
-    padding: 60px 20px;
-    gap: 35px;
+    padding: 80px 20px;
+    gap: 50px;
   }
   
   .service-title {
@@ -403,26 +321,18 @@ $service-numbers: (
   
   .service-description {
     font-size: 1.1rem;
-    margin-bottom: 30px;
-  }
-  
-  .service-features {
-    gap: 10px;
-    margin-bottom: 35px;
-  }
-  
-  .feature {
-    padding: 10px 15px;
   }
   
   .service-actions {
-    gap: 12px;
+    flex-direction: row;
+    justify-content: center;
+    max-width: none;
   }
   
   .btn-primary,
   .btn-secondary {
+    width: auto;
     padding: 14px 25px;
-    font-size: 0.95rem;
   }
   
   .service-icon {
@@ -432,88 +342,112 @@ $service-numbers: (
   }
 }
 
-/* Mobiles portrait (375px - 575px) */
-@media (max-width: 575px) and (min-width: 375px) {
-  .section-header {
-    padding: 40px 15px 20px;
-  }
-  
-  .section-title {
-    font-size: 2rem;
-    letter-spacing: 1px;
-  }
-  
-  .section-divider {
-    width: 60px;
-  }
-  
-  .service-fullwidth {
-    min-height: 60vh;
-    margin-bottom: 80px;
-  }
-  
+/* Tablettes paysage (1024px et plus) */
+@media (min-width: 1024px) {
   .service-content {
-    padding: 50px 15px;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    text-align: left;
+    padding: 100px 20px;
   }
   
-  .service-title {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+  .service-info {
+    text-align: left;
+    padding: 40px 0;
   }
   
-  .service-description {
-    font-size: 1rem;
-    margin-bottom: 25px;
+  .service-content.reverse {
+    direction: rtl;
   }
   
-  .service-features {
-    gap: 8px;
-    margin-bottom: 30px;
-  }
-  
-  .feature {
-    padding: 8px 12px;
-    gap: 10px;
-  }
-  
-  .feature i {
-    padding: 6px;
-    font-size: 0.9rem;
-  }
-  
-  .feature span {
-    font-size: 0.9rem;
+  .service-content.reverse > * {
+    direction: ltr;
   }
   
   .service-actions {
-    flex-direction: column;
-    gap: 10px;
+    justify-content: flex-start;
+  }
+  
+  .service-title {
+    font-size: 2.5rem;
+  }
+  
+  .service-fullwidth {
+    min-height: 700px;
+    margin-bottom: 120px;
+  }
+}
+
+/* Grands écrans (1200px et plus) */
+@media (min-width: 1200px) {
+  .section-header {
+    padding: 80px 20px 50px;
+  }
+  
+  .section-title {
+    font-size: 3.5rem;
+  }
+  
+  .service-content {
+    gap: 80px;
+    padding: 120px 20px;
+  }
+  
+  .service-title {
+    font-size: 3rem;
+  }
+  
+  .service-description {
+    font-size: 1.2rem;
+  }
+  
+  .service-features {
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  
+  .feature {
+    padding: 12px 18px;
+  }
+  
+  .service-actions {
+    gap: 15px;
   }
   
   .btn-primary,
   .btn-secondary {
-    width: 100%;
-    justify-content: center;
-    padding: 14px 20px;
-    font-size: 0.9rem;
+    padding: 16px 32px;
+    font-size: 1rem;
   }
   
   .service-icon {
-    width: 120px;
-    height: 120px;
-    font-size: 2.5rem;
+    width: 180px;
+    height: 180px;
+    font-size: 3.5rem;
   }
   
-  .service-visual {
-    padding: 20px;
+  .service-fullwidth {
+    min-height: 800px;
+    margin-bottom: 150px;
   }
 }
 
-/* Très petits mobiles (moins de 375px) */
+/* Très grands écrans (1400px et plus) */
+@media (min-width: 1400px) {
+  .service-content {
+    max-width: 1300px;
+  }
+  
+  .service-title {
+    font-size: 3.2rem;
+  }
+}
+
+/* Ajustements pour mobiles très petits (moins de 375px) */
 @media (max-width: 374px) {
   .section-header {
-    padding: 30px 10px 15px;
+    padding: 30px 15px 20px;
   }
   
   .section-title {
@@ -521,12 +455,12 @@ $service-numbers: (
   }
   
   .service-fullwidth {
-    min-height: 50vh;
+    min-height: 450px;
     margin-bottom: 60px;
   }
   
   .service-content {
-    padding: 40px 10px;
+    padding: 40px 15px;
     gap: 25px;
   }
   
@@ -539,16 +473,11 @@ $service-numbers: (
   }
   
   .feature {
-    padding: 6px 10px;
+    padding: 8px 12px;
+    gap: 10px;
   }
   
   .feature span {
-    font-size: 0.85rem;
-  }
-  
-  .btn-primary,
-  .btn-secondary {
-    padding: 12px 16px;
     font-size: 0.85rem;
   }
   
@@ -562,18 +491,33 @@ $service-numbers: (
 /* Gestion de l'orientation paysage sur mobile */
 @media (max-height: 500px) and (orientation: landscape) {
   .service-fullwidth {
-    min-height: 150vh; /* Plus de hauteur en mode paysage */
+    min-height: 120vh;
   }
   
   .service-content {
     padding: 40px 20px;
+    flex-direction: row;
+    text-align: left;
+  }
+  
+  .service-info {
+    text-align: left;
+    flex: 1;
+  }
+  
+  .service-visual {
+    flex: 0 0 auto;
+  }
+  
+  .service-actions {
+    flex-direction: row;
+    max-width: none;
   }
 }
 
 /* Support des écrans haute résolution */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .service-bg {
-    /* Images plus nettes pour les écrans Retina */
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
   }
