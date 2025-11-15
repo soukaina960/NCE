@@ -1,3 +1,4 @@
+<!-- header-enhanced.component.html -->
 <header id="header" [class.scrolled]="isScrolled">
   <div class="container header-container">
     <div class="logo">
@@ -11,34 +12,39 @@
     <nav [class.active]="isMenuActive">
       <ul>
         <li>
-          <a (click)="scrollToSection('home')" class="nav-link">
+          <button (click)="scrollToSection('home')" class="nav-link">
             Accueil
-          </a>
+          </button>
         </li>
         <li>
-          <a (click)="scrollToSection('about')" class="nav-link">
-              Services
-          </a>
+          <button (click)="scrollToSection('about')" class="nav-link">
+            À propos
+          </button>
         </li>
         <li>
-          <a (click)="scrollToSection('services')" class="nav-link">
-             Produit
-          </a>
+          <button (click)="scrollToSection('services')" class="nav-link">
+            Services
+          </button>
         </li>
         <li>
-          <a (click)="scrollToSection('contact')" class="nav-link">
+          <button (click)="scrollToSection('products')" class="nav-link">
+            Produits
+          </button>
+        </li>
+        <li>
+          <button (click)="scrollToSection('contact')" class="nav-link">
             Contact
-          </a>
+          </button>
         </li>
         <li>
-          <a class="btn nav-link" (click)="onInscription()">
-            inscription
-          </a>
+          <button class="btn nav-link" (click)="onInscription()">
+            Inscription
+          </button>
         </li>
         <li>
-          <a class="btn nav-link" (click)="onConnexion()">
-            connexion
-          </a>
+          <button class="btn nav-link" (click)="onConnexion()">
+            Connexion
+          </button>
         </li>
       </ul>
     </nav>
@@ -54,26 +60,7 @@
   
   <!-- Effet particules -->
   <div class="particles">
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
+    <div class="particle" *ngFor="let particle of [].constructor(20); let i = index"></div>
   </div>
   
   <div class="hero-content">
@@ -84,12 +71,12 @@
     </p>
     
     <div class="hero-buttons">
-      <a (click)="scrollToSection('contact')" class="hero-btn">
-         Découvrir nos produits
-      </a>
-      <a (click)="scrollToSection('services')" class="hero-btn secondary">
+      <button (click)="scrollToSection('products')" class="hero-btn">
+        Découvrir nos produits
+      </button>
+      <button (click)="scrollToSection('services')" class="hero-btn secondary">
         Découvrir nos services
-      </a>
+      </button>
     </div>
   </div>
   

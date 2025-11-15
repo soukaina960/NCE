@@ -1,77 +1,154 @@
-import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
+interface NavigationState {
+  isScrolled: boolean;
+  isMenuActive: boolean;
+  currentSlide: number;
+  slideInterval: any;
+}
 
 @Component({
   selector: 'app-header',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './header.html',
   styleUrls: ['./header.scss']
 })
 export class Header implements OnInit, OnDestroy {
-  isScrolled = false;
-  isMenuActive = false;
-  currentSlide = 0;
-  private slideInterval: any;
+  private router = inject(Router);
+  
+  public navigationState: NavigationState = {
+    isScrolled: false,
+    isMenuActive: false,
+    currentSlide: 0,
+    slideInterval: null
+  };
+
+  private readonly SLIDE_INTERVAL = 5000; // 5 secondes
+  private readonly SCROLL_THRESHOLD = 100;
+  private readonly MOBILE_BREAKPOINT = 768;
 
   ngOnInit(): void {
-    this.startSlideShow();
-    this.createParticles();
+    this.initBackgroundSlider();
+    this.checkScrollPosition();
   }
 
   ngOnDestroy(): void {
-    if (this.slideInterval) {
-      clearInterval(this.slideInterval);
-    }
+    this.cleanup();
   }
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    this.isScrolled = window.scrollY > 100;
+    this.checkScrollPosition();
   }
 
-  toggleMenu(): void {
-    this.isMenuActive = !this.isMenuActive;
+  @HostListener('window:resize', [])
+  onWindowResize(): void {
+    this.handleResize();
   }
 
-  closeMenu(): void {
-    this.isMenuActive = false;
+  private checkScrollPosition(): void {
+    this.navigationState.isScrolled = window.scrollY > this.SCROLL_THRESHOLD;
   }
 
-  scrollToSection(sectionId: string): void {
-    this.closeMenu();
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const headerHeight = document.getElementById('header')?.offsetHeight || 0;
-      const offsetTop = element.offsetTop - headerHeight;
-      
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      });
+  private initBackgroundSlider(): void {
+    this.navigationState.slideInterval = setInterval(() => {
+      this.nextSlide();
+    }, this.SLIDE_INTERVAL);
+  }
+
+  private nextSlide(): void {
+    this.navigationState.currentSlide = 
+      (this.navigationState.currentSlide + 1) % 2; // 2 slides
+  }
+
+  private handleResize(): void {
+    if (window.innerWidth > this.MOBILE_BREAKPOINT && this.navigationState.isMenuActive) {
+      this.closeMenu();
     }
   }
 
-  // Méthodes pour les boutons d'authentification
-  onInscription(): void {
-    this.closeMenu();
-    // Logique pour l'inscription
-    console.log('Redirection vers la page d\'inscription');
+  public scrollToSection(sectionId: string): void {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerHeight = this.getHeaderHeight();
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+
+      if (this.navigationState.isMenuActive) {
+        this.closeMenu();
+      }
+    }
   }
 
-  onConnexion(): void {
-    this.closeMenu();
-    // Logique pour la connexion
-    console.log('Redirection vers la page de connexion');
+  public toggleMenu(): void {
+    this.navigationState.isMenuActive = !this.navigationState.isMenuActive;
+    
+    if (this.navigationState.isMenuActive) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
   }
 
-  // Gestion du défilement des images de fond
-  private startSlideShow(): void {
-    this.slideInterval = setInterval(() => {
-      this.currentSlide = (this.currentSlide + 1) % 2; // Alterne entre 0 et 1
-    }, 6000); // Change toutes les 6 secondes
+  public closeMenu(): void {
+    this.navigationState.isMenuActive = false;
+    document.body.classList.remove('no-scroll');
   }
 
-  // Création des particules dynamiques
-  private createParticles(): void {
-    // Les particules sont créées via CSS avec le sélecteur :nth-child
-    // Cette méthode est optionnelle si vous voulez créer des particules via JavaScript
+  public onInscription(): void {
+    console.log('🔴 onInscription() appelé');
+    this.router.navigate(['/inscription']).then(success => {
+      console.log('🟢 Navigation inscription:', success);
+      if (!success) {
+        console.error('❌ Navigation échouée');
+        // Fallback
+        window.location.href = '/inscription';
+      }
+    });
+  }
+
+  public onConnexion(): void {
+    console.log('🔴 onConnexion() appelé');
+    this.router.navigate(['/connexion']).then(success => {
+      console.log('🟢 Navigation connexion:', success);
+      if (!success) {
+        console.error('❌ Navigation échouée');
+        // Fallback
+        window.location.href = '/connexion';
+      }
+    });
+  }
+
+  private getHeaderHeight(): number {
+    const header = document.querySelector('header');
+    return header ? header.offsetHeight : 0;
+  }
+
+  private cleanup(): void {
+    if (this.navigationState.slideInterval) {
+      clearInterval(this.navigationState.slideInterval);
+    }
+    document.body.classList.remove('no-scroll');
+  }
+
+  // Getters pour le template
+  get isScrolled(): boolean {
+    return this.navigationState.isScrolled;
+  }
+
+  get isMenuActive(): boolean {
+    return this.navigationState.isMenuActive;
+  }
+
+  get currentSlide(): number {
+    return this.navigationState.currentSlide;
   }
 }

@@ -1,0 +1,289 @@
+<div class="register-container">
+  <div class="register-card">
+    <div class="register-header">
+      <h1>Créer votre compte</h1>
+      <p>Rejoignez ElectroSolution et accédez à tous nos services</p>
+    </div>
+
+    <!-- Bouton de test (à retirer en production) -->
+    <div class="test-buttons" style="padding: 0 40px; margin-bottom: 20px;">
+      <button type="button" (click)="fillTestData()" class="test-btn">
+        🧪 Remplir avec des données de test
+      </button>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      
+      <!-- Messages d'état -->
+      <div *ngIf="errorMessage" class="alert alert-error">
+        <i class="fas fa-exclamation-circle"></i>
+        {{ errorMessage }}
+      </div>
+
+      <div *ngIf="successMessage" class="alert alert-success">
+        <i class="fas fa-check-circle"></i>
+        {{ successMessage }}
+      </div>
+
+      <!-- Informations personnelles -->
+      <div class="form-section">
+        <h3>Informations personnelles</h3>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prenom">Prénom *</label>
+            <input
+              type="text"
+              id="prenom"
+              formControlName="prenom"
+              [class.error]="prenom?.invalid && prenom?.touched"
+              placeholder="Votre prénom">
+            <div *ngIf="prenom?.invalid && prenom?.touched" class="error-message">
+              <span *ngIf="prenom?.errors?.['required']">Le prénom est requis</span>
+              <span *ngIf="prenom?.errors?.['minlength']">Le prénom doit contenir au moins 2 caractères</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="nom">Nom *</label>
+            <input
+              type="text"
+              id="nom"
+              formControlName="nom"
+              [class.error]="nom?.invalid && nom?.touched"
+              placeholder="Votre nom">
+            <div *ngIf="nom?.invalid && nom?.touched" class="error-message">
+              <span *ngIf="nom?.errors?.['required']">Le nom est requis</span>
+              <span *ngIf="nom?.errors?.['minlength']">Le nom doit contenir au moins 2 caractères</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
+              [class.error]="email?.invalid && email?.touched"
+              placeholder="votre@email.com">
+            <div *ngIf="email?.invalid && email?.touched" class="error-message">
+              <span *ngIf="email?.errors?.['required']">L'email est requis</span>
+              <span *ngIf="email?.errors?.['email']">Format d'email invalide</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="telephone">Téléphone *</label>
+            <input
+              type="tel"
+              id="telephone"
+              formControlName="telephone"
+              [class.error]="telephone?.invalid && telephone?.touched"
+              placeholder="0123456789">
+            <div *ngIf="telephone?.invalid && telephone?.touched" class="error-message">
+              <span *ngIf="telephone?.errors?.['required']">Le téléphone est requis</span>
+              <span *ngIf="telephone?.errors?.['pattern']">Format de téléphone invalide (ex: 0123456789)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mot de passe -->
+      <div class="form-section">
+        <h3>Sécurité du compte</h3>
+        
+        <div class="form-row">
+          <div class="form-group password-group">
+            <label for="password">Mot de passe *</label>
+            <div class="password-input-container">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                id="password"
+                formControlName="password"
+                [class.error]="password?.invalid && password?.touched"
+                placeholder="Au moins 8 caractères"
+                (input)="getPasswordStrength()">
+              <button type="button" class="password-toggle" (click)="togglePasswordVisibility('password')">
+                <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+              </button>
+            </div>
+            
+            <!-- Indicateur de force du mot de passe -->
+            <div *ngIf="password?.value" class="password-strength">
+              <div class="strength-bar" [class]="getPasswordStrength()"></div>
+              <div class="strength-text">
+                Force: 
+                <span [class]="getPasswordStrength()">
+                  {{ getPasswordStrength() === 'weak' ? 'Faible' : 
+                      getPasswordStrength() === 'fair' ? 'Moyenne' : 
+                      getPasswordStrength() === 'good' ? 'Bonne' : 'Forte' }}
+                </span>
+              </div>
+            </div>
+
+            <div *ngIf="password?.invalid && password?.touched" class="error-message">
+              <span *ngIf="password?.errors?.['required']">Le mot de passe est requis</span>
+              <span *ngIf="password?.errors?.['minlength']">Le mot de passe doit contenir au moins 8 caractères</span>
+              <span *ngIf="password?.errors?.['pattern']">
+                Doit contenir majuscule, minuscule, chiffre et caractère spécial (@$!%*?&)
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group password-group">
+            <label for="confirmPassword">Confirmer le mot de passe *</label>
+            <div class="password-input-container">
+              <input
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                id="confirmPassword"
+                formControlName="confirmPassword"
+                [class.error]="confirmPassword?.invalid && confirmPassword?.touched"
+                placeholder="Confirmez votre mot de passe">
+              <button type="button" class="password-toggle" (click)="togglePasswordVisibility('confirmPassword')">
+                <i class="fas" [class.fa-eye]="!showConfirmPassword" [class.fa-eye-slash]="showConfirmPassword"></i>
+              </button>
+            </div>
+            <div *ngIf="confirmPassword?.invalid && confirmPassword?.touched" class="error-message">
+              <span *ngIf="confirmPassword?.errors?.['required']">La confirmation est requise</span>
+              <span *ngIf="confirmPassword?.errors?.['mismatch']">Les mots de passe ne correspondent pas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Adresse - CORRECTION : utiliser formGroupName -->
+      <div class="form-section" formGroupName="adresse">
+        <h3>Adresse</h3>
+        
+        <div class="form-group">
+          <label for="rue">Rue *</label>
+          <input
+            type="text"
+            id="rue"
+            formControlName="rue"
+            [class.error]="rue?.invalid && rue?.touched"
+            placeholder="Numéro et nom de rue">
+          <div *ngIf="rue?.invalid && rue?.touched" class="error-message">
+            <span *ngIf="rue?.errors?.['required']">La rue est requise</span>
+            <span *ngIf="rue?.errors?.['minlength']">L'adresse est trop courte</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ville">Ville *</label>
+            <input
+              type="text"
+              id="ville"
+              formControlName="ville"
+              [class.error]="ville?.invalid && ville?.touched"
+              placeholder="Votre ville">
+            <div *ngIf="ville?.invalid && ville?.touched" class="error-message">
+              <span *ngIf="ville?.errors?.['required']">La ville est requise</span>
+              <span *ngIf="ville?.errors?.['minlength']">Le nom de ville est trop court</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="codePostal">Code postal *</label>
+            <input
+              type="text"
+              id="codePostal"
+              formControlName="codePostal"
+              [class.error]="codePostal?.invalid && codePostal?.touched"
+              placeholder="75000"
+              maxlength="5">
+            <div *ngIf="codePostal?.invalid && codePostal?.touched" class="error-message">
+              <span *ngIf="codePostal?.errors?.['required']">Le code postal est requis</span>
+              <span *ngIf="codePostal?.errors?.['pattern']">Le code postal doit contenir 5 chiffres</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="pays">Pays *</label>
+          <select
+            id="pays"
+            formControlName="pays"
+            [class.error]="pays?.invalid && pays?.touched">
+            <option value="France">France</option>
+            <option value="Belgique">Belgique</option>
+            <option value="Suisse">Suisse</option>
+            <option value="Luxembourg">Luxembourg</option>
+          </select>
+          <div *ngIf="pays?.invalid && pays?.touched" class="error-message">
+            Le pays est requis
+          </div>
+        </div>
+      </div>
+
+      <!-- Type de client et préférences -->
+      <div class="form-section">
+        <h3>Préférences</h3>
+        
+        <div class="form-group">
+          <label>Type de client *</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" formControlName="typeClient" value="particulier">
+              <span class="radio-checkmark"></span>
+              <div class="radio-content">
+                <strong>Particulier</strong>
+                <span>Pour vos besoins personnels</span>
+              </div>
+            </label>
+            <label class="radio-option">
+              <input type="radio" formControlName="typeClient" value="professionnel">
+              <span class="radio-checkmark"></span>
+              <div class="radio-content">
+                <strong>Professionnel</strong>
+                <span>Pour votre entreprise</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label class="checkbox-option">
+            <input type="checkbox" formControlName="newsletter">
+            <span class="checkbox-checkmark"></span>
+            Je souhaite recevoir la newsletter et les offres promotionnelles
+          </label>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label class="checkbox-option required">
+            <input type="checkbox" formControlName="conditionsAcceptees">
+            <span class="checkbox-checkmark"></span>
+            J'accepte les <a href="/conditions" target="_blank">conditions générales d'utilisation</a> *
+          </label>
+          <div *ngIf="conditionsAcceptees?.invalid && conditionsAcceptees?.touched" class="error-message">
+            Vous devez accepter les conditions générales
+          </div>
+        </div>
+      </div>
+
+      <!-- Bouton de soumission -->
+      <button
+        type="submit"
+        class="submit-btn"
+        [disabled]="registerForm.invalid || isLoading">
+        <span *ngIf="!isLoading">
+          <i class="fas fa-user-plus"></i>
+          Créer mon compte
+        </span>
+        <span *ngIf="isLoading" class="loading">
+          <i class="fas fa-spinner fa-spin"></i>
+          Création en cours...
+        </span>
+      </button>
+
+      <!-- Lien vers connexion -->
+      <div class="login-link">
+        <p>Déjà un compte ? <a routerLink="/connexion">Se connecter</a></p>
+      </div>
+    </form>
+  </div>
+</div>

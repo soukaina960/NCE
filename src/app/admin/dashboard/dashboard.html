@@ -1,0 +1,317 @@
+<div class="admin-dashboard">
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="header-content">
+      <h1>
+        <i class="fas fa-cogs"></i>
+        Administration NCE ENERGIE MAROC
+      </h1>
+      <div class="user-info">
+        <span>Bonjour, {{ currentUser?.prenom }} {{ currentUser?.nom }}</span>
+        <button (click)="logout()" class="logout-btn">
+          <i class="fas fa-sign-out-alt"></i>
+          Déconnexion
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="admin-nav">
+    <button 
+      (click)="setActiveTab('dashboard')" 
+      [class.active]="activeTab === 'dashboard'"
+      class="nav-btn">
+      <i class="fas fa-chart-bar"></i>
+      Tableau de bord
+    </button>
+    <button 
+      (click)="setActiveTab('clients')" 
+      [class.active]="activeTab === 'clients'"
+      class="nav-btn">
+      <i class="fas fa-users"></i>
+      Gestion des clients ({{ stats.totalClients }})
+    </button>
+  </nav>
+
+  <!-- Contenu principal -->
+  <main class="admin-content">
+    
+    <!-- Tableau de bord -->
+    <div *ngIf="activeTab === 'dashboard'" class="dashboard-tab">
+      <h2>Tableau de bord - Clients</h2>
+      
+      <!-- Statistiques -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon total">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ stats.totalClients }}</h3>
+            <p>Clients total</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon active">
+            <i class="fas fa-user-check"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ stats.clientsActifs }}</h3>
+            <p>Clients actifs</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon new">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ stats.nouveauxClientsMois }}</h3>
+            <p>Nouveaux ce mois</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon types">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ stats.clientsParType?.length || 0 }}</h3>
+            <p>Types de clients</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Répartition -->
+      <div class="charts-section">
+        <div class="chart-card">
+          <h3>Répartition par type de client</h3>
+          <div class="chart-content">
+            <div *ngFor="let type of stats.clientsParType" class="type-item">
+              <span class="type-label">{{ formatTypeClient(type._id) }}</span>
+              <span class="type-count">{{ type.count }} clients</span>
+            </div>
+            <div *ngIf="!stats.clientsParType?.length" class="no-data">
+              Aucune donnée disponible
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bouton debug temporaire -->
+      <button (click)="debugUsers()" class="btn-debug" style="margin-top: 20px; padding: 10px; background: #f39c12; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        🔍 Debug Users (Temporaire)
+      </button>
+    </div>
+
+    <!-- Gestion des clients -->
+    <div *ngIf="activeTab === 'clients'" class="clients-tab">
+      <h2>Gestion des clients</h2>
+      
+      <!-- Barre de recherche -->
+      <div class="search-bar">
+        <div class="search-input-container">
+          <i class="fas fa-search"></i>
+          <input 
+            type="text" 
+            [(ngModel)]="searchTerm"
+            (keyup.enter)="searchClients()"
+            placeholder="Rechercher un client par nom, prénom, email ou téléphone..."
+            class="search-input">
+          <button (click)="searchClients()" class="btn-search">
+            <i class="fas fa-search"></i>
+            Rechercher
+          </button>
+          <button *ngIf="searchTerm" (click)="searchTerm = ''; loadClients()" class="btn-clear">
+            <i class="fas fa-times"></i>
+            Effacer
+          </button>
+        </div>
+      </div>
+      
+      <!-- Liste des clients -->
+      <div class="clients-section">
+        <div class="section-header">
+          <h3>Liste des clients ({{ clientsPagination.total }})</h3>
+        </div>
+        
+        <div class="clients-table-container">
+          <table class="clients-table">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Type</th>
+                <th>Date d'inscription</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let client of clients" 
+                  [class.selected]="selectedClient?._id === client._id">
+                <td>
+                  <strong>{{ client.nom }}</strong>
+                </td>
+                <td>{{ client.prenom }}</td>
+                <td>{{ client.email }}</td>
+                <td>{{ client.telephone || 'Non renseigné' }}</td>
+                <td>
+                  <span [class]="'type-badge ' + (client.typeClient || 'particulier')">
+                    {{ formatTypeClient(client.typeClient) }}
+                  </span>
+                </td>
+                <td>{{ formatDate(client.dateInscription) }}</td>
+                <td>
+                  <span [class]="'status-badge ' + (isClientActive(client) ? 'active' : 'inactive')">
+                    {{ isClientActive(client) ? 'Actif' : 'Inactif' }}
+                  </span>
+                </td>
+                <td class="actions">
+                  <button 
+                    (click)="loadClientDetail(client._id)"
+                    class="btn-details">
+                    <i class="fas fa-eye"></i>
+                    Détails
+                  </button>
+                  <button 
+                    (click)="toggleUserStatus(client._id, isClientActive(client))"
+                    [class]="isClientActive(client) ? 'btn-deactivate' : 'btn-activate'">
+                    <i class="fas" 
+                       [class.fa-toggle-on]="isClientActive(client)" 
+                       [class.fa-toggle-off]="!isClientActive(client)"></i>
+                    {{ isClientActive(client) ? 'Désactiver' : 'Activer' }}
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="clients.length === 0 && !isLoading">
+                <td colspan="8" class="no-data">
+                  <i class="fas fa-users"></i>
+                  <p>Aucun client trouvé</p>
+                  <button *ngIf="searchTerm" (click)="searchTerm = ''; loadClients()" class="btn-clear-search">
+                    Afficher tous les clients
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div *ngIf="clientsPagination.pages > 1" class="pagination">
+          <button 
+            (click)="changePage(clientsPagination.page - 1)"
+            [disabled]="clientsPagination.page === 1"
+            class="page-btn">
+            <i class="fas fa-chevron-left"></i>
+            Précédent
+          </button>
+          
+          <span class="page-info">
+            Page {{ clientsPagination.page }} sur {{ clientsPagination.pages }}
+            ({{ clientsPagination.total }} client(s))
+          </span>
+          
+          <button 
+            (click)="changePage(clientsPagination.page + 1)"
+            [disabled]="clientsPagination.page === clientsPagination.pages"
+            class="page-btn">
+            Suivant
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Détails du client sélectionné -->
+      <div *ngIf="selectedClient" class="client-details">
+        <div class="details-header">
+          <h3>Détails du client</h3>
+          <button (click)="selectedClient = null" class="btn-close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="details-content">
+          <div class="info-section">
+            <h4>Informations personnelles</h4>
+            <div class="info-grid">
+              <div class="info-item">
+                <label>Nom complet:</label>
+                <span>{{ selectedClient.prenom }} {{ selectedClient.nom }}</span>
+              </div>
+              <div class="info-item">
+                <label>Email:</label>
+                <span>{{ selectedClient.email }}</span>
+              </div>
+              <div class="info-item">
+                <label>Téléphone:</label>
+                <span>{{ selectedClient.telephone || 'Non renseigné' }}</span>
+              </div>
+              <div class="info-item">
+                <label>Type:</label>
+                <span class="type-badge {{ selectedClient.typeClient || 'particulier' }}">
+                  {{ formatTypeClient(selectedClient.typeClient) }}
+                </span>
+              </div>
+              <div class="info-item">
+                <label>Date d'inscription:</label>
+                <span>{{ formatDate(selectedClient.dateInscription) }}</span>
+              </div>
+              <div class="info-item">
+                <label>Statut:</label>
+                <span class="status-badge {{ isClientActive(selectedClient) ? 'active' : 'inactive' }}">
+                  {{ isClientActive(selectedClient) ? 'Actif' : 'Inactif' }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes admin -->
+          <div class="notes-section">
+            <h4>Notes administrateur</h4>
+            
+            <div class="add-note">
+              <textarea 
+                [(ngModel)]="newNoteContent"
+                placeholder="Ajouter une note sur ce client..."
+                class="note-textarea"
+                rows="4"></textarea>
+              <button 
+                (click)="addNoteToClient(selectedClient?._id)"
+                [disabled]="!newNoteContent.trim()"
+                class="btn-add-note">
+                <i class="fas fa-plus"></i>
+                Ajouter la note
+              </button>
+            </div>
+
+            <div class="notes-list">
+              <div *ngFor="let note of selectedClient.notesAdmin || []" class="note-item">
+                <div class="note-header">
+                  <strong>{{ note.auteur }}</strong>
+                  <span class="note-date">{{ formatDate(note.date) }}</span>
+                </div>
+                <p class="note-content">{{ note.contenu }}</p>
+              </div>
+              <div *ngIf="!selectedClient.notesAdmin || selectedClient.notesAdmin.length === 0" class="no-notes">
+                Aucune note pour ce client
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="loading-overlay">
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Chargement...</p>
+      </div>
+    </div>
+  </main>
+</div>

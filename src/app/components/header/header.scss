@@ -56,9 +56,18 @@ body {
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
+  
+  &.no-scroll {
+    overflow: hidden;
+    
+    @include mobile {
+      position: fixed;
+      width: 100%;
+    }
+  }
 }
 
-// Header Styles - Version Desktop
+// Header Styles
 header {
   background-color: rgba(255, 255, 255, 0.95);
   box-shadow: $shadow;
@@ -73,6 +82,22 @@ header {
     padding: 5px 0;
     background-color: rgba(255, 255, 255, 0.98);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    
+    .header-container {
+      padding: 8px 40px;
+      
+      @include mobile {
+        padding: 5px 20px;
+      }
+    }
+    
+    .logo {
+      height: 60px;
+      
+      @include mobile {
+        height: 50px;
+      }
+    }
   }
 }
 
@@ -105,6 +130,7 @@ header {
   letter-spacing: 2px;
   cursor: pointer;
   height: 70px;
+  transition: $transition;
 
   i {
     width: 150px;
@@ -163,7 +189,7 @@ nav {
     }
 
     li {
-      margin-left: 35px;
+      margin-left: 30px;
       position: relative;
     }
 
@@ -177,7 +203,6 @@ nav {
       text-decoration: none;
       color: $dark;
       transition: $transition;
-      margin-right: 0;
       cursor: pointer;
       background: none;
       border: none;
@@ -202,14 +227,6 @@ nav {
           width: 100%;
         }
       }
-
-      &.active {
-        color: $secondary;
-        
-        &::after {
-          width: 100%;
-        }
-      }
     }
 
     .btn {
@@ -222,6 +239,8 @@ nav {
       letter-spacing: 1px;
       font-size: 1rem;
       margin-left: 20px;
+      text-decoration: none;
+      display: inline-block;
       
       // Style pour le bouton inscription
       &:first-of-type {
@@ -250,10 +269,6 @@ nav {
           box-shadow: 0 8px 20px rgba(46, 43, 43, 0.3);
         }
       }
-
-      &:hover::after {
-        width: 0 !important;
-      }
     }
   }
 
@@ -270,7 +285,6 @@ nav {
     box-shadow: 5px 0 25px rgba(0, 0, 0, 0.15);
     z-index: 999;
     overflow-y: auto;
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
 
     &.active {
       left: 0;
@@ -286,7 +300,7 @@ nav {
     }
 
     li {
-      margin: 15px 0;
+      margin: 12px 0;
       width: 100%;
       transform: translateX(-30px);
       opacity: 0;
@@ -307,8 +321,8 @@ nav {
     .nav-link {
       display: block;
       width: 100%;
-      padding: 18px 0;
-      font-size: 1.2rem;
+      padding: 15px 0;
+      font-size: 1.1rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -316,61 +330,61 @@ nav {
       color: $dark;
       transition: $transition;
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      position: relative;
       background: none;
       border: none;
       text-align: left;
+      cursor: pointer;
 
       &::before {
         content: '';
         position: absolute;
-        left: -30px;
+        left: -25px;
         top: 50%;
         transform: translateY(-50%);
-        width: 8px;
-        height: 8px;
+        width: 6px;
+        height: 6px;
         background: $secondary;
         border-radius: 50%;
         opacity: 0;
         transition: $transition;
       }
 
-      &:hover,
-      &.active {
+      &:hover {
         color: $secondary;
-        padding-left: 20px;
+        padding-left: 15px;
 
         &::before {
           opacity: 1;
-          left: -15px;
+          left: -10px;
         }
       }
     }
 
     .btn {
       margin-left: 0 !important;
-      margin-top: 20px;
+      margin-top: 15px;
       text-align: center;
       width: 100%;
       border-radius: $border-radius;
-      padding: 15px 30px !important;
+      padding: 14px 25px !important;
       transition: $transition;
       border: 2px solid;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
-      font-size: 1.1rem;
+      font-size: 1rem;
+      text-decoration: none;
+      display: block;
       
       &:first-of-type {
         background: $secondary;
         color: white !important;
         border-color: $secondary;
-        margin-top: 30px;
+        margin-top: 25px;
 
         &:hover {
           background: transparent;
           color: $secondary !important;
-          transform: translateY(-2px);
         }
       }
       
@@ -382,7 +396,6 @@ nav {
         &:hover {
           background: $primary;
           color: white !important;
-          transform: translateY(-2px);
         }
       }
     }
@@ -394,58 +407,27 @@ nav {
   display: none;
 
   @include mobile {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 35px;
-    height: 35px;
+    display: block;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
     transition: $transition;
     z-index: 1001;
+    background: none;
+    border: none;
+    padding: 0;
 
-    span {
-      display: block;
-      height: 3px;
-      width: 100%;
-      background: $primary;
-      margin: 4px 0;
+    i {
+      font-size: 1.5rem;
+      color: $primary;
       transition: $transition;
-      border-radius: 2px;
-      
-      &:nth-child(1) {
-        width: 80%;
-        margin-left: auto;
-      }
-      
-      &:nth-child(3) {
-        width: 60%;
-        margin-left: auto;
-      }
-    }
-
-    &.active {
-      span {
-        &:nth-child(1) {
-          transform: rotate(45deg) translate(10px, 10px);
-          width: 100%;
-        }
-        
-        &:nth-child(2) {
-          opacity: 0;
-        }
-        
-        &:nth-child(3) {
-          transform: rotate(-45deg) translate(10px, -10px);
-          width: 100%;
-        }
-      }
     }
 
     &:hover {
       transform: scale(1.1);
       
-      span {
-        background: $secondary;
+      i {
+        color: $secondary;
       }
     }
   }
@@ -473,12 +455,16 @@ nav {
   }
 }
 
-// Hero Section - Version Desktop et Mobile
+// Hero Section
 .hero {
   height: 100vh;
   position: relative;
   overflow: hidden;
   margin-top: 80px;
+  
+  @include mobile {
+    margin-top: 70px;
+  }
   
   .hero-background {
     position: absolute;
@@ -527,86 +513,94 @@ nav {
     color: white;
     padding: 0 40px;
     
+    @include tablet {
+      padding: 0 30px;
+    }
+    
+    @include mobile {
+      padding: 0 20px;
+    }
+    
+    @include small-mobile {
+      padding: 0 15px;
+    }
+    
     .hero-title {
-      font-size: 4rem;
-      font-weight: 900;
-      margin-bottom: 25px;
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
       text-transform: uppercase;
-      letter-spacing: 3px;
-      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
       animation: fadeInUp 1s ease-out;
-      line-height: 1.1;
+      line-height: 1.2;
 
       @include tablet {
-        font-size: 3.5rem;
-        letter-spacing: 2px;
+        font-size: 3rem;
       }
 
       @include mobile {
-        font-size: 2.8rem;
-        margin-bottom: 20px;
-        letter-spacing: 2px;
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+        letter-spacing: 1px;
       }
 
       @include small-mobile {
-        font-size: 2.2rem;
-        letter-spacing: 1px;
+        font-size: 1.8rem;
       }
     }
     
     .hero-subtitle {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 300;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       max-width: 800px;
       line-height: 1.5;
-      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
       animation: fadeInUp 1s ease-out 0.3s both;
 
       @include tablet {
-        font-size: 1.6rem;
+        font-size: 1.3rem;
         max-width: 700px;
       }
 
       @include mobile {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
         max-width: 90%;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
       }
 
       @include small-mobile {
-        font-size: 1.1rem;
-        max-width: 95%;
+        font-size: 1rem;
       }
     }
     
     .hero-description {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 400;
-      margin-bottom: 45px;
+      margin-bottom: 40px;
       max-width: 700px;
-      line-height: 1.7;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+      line-height: 1.6;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
       animation: fadeInUp 1s ease-out 0.6s both;
 
       @include mobile {
-        font-size: 1rem;
+        font-size: 0.95rem;
         max-width: 90%;
-        margin-bottom: 35px;
+        margin-bottom: 30px;
       }
 
       @include small-mobile {
         font-size: 0.9rem;
-        max-width: 95%;
       }
     }
   }
 }
 
-// Boutons Hero - Desktop et Mobile
+// Boutons Hero
 .hero-buttons {
   @include flex-center;
-  gap: 25px;
+  gap: 20px;
   animation: fadeInUp 1s ease-out 0.9s both;
 
   @include mobile {
@@ -616,30 +610,27 @@ nav {
     max-width: 300px;
   }
 
-  @include desktop {
-    flex-wrap: wrap;
-  }
-
   .hero-btn {
     display: inline-block;
     background: $primary;
     color: white;
-    padding: 18px 45px;
+    padding: 16px 35px;
     border-radius: $border-radius;
     text-decoration: none;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     transition: $transition;
     border: 2px solid $primary;
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-align: center;
+    cursor: pointer;
     
     &:hover {
       background: transparent;
       color: white;
       transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
 
     &.secondary {
@@ -651,23 +642,22 @@ nav {
         background: white;
         color: $dark;
         transform: translateY(-3px);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
       }
     }
 
     @include tablet {
-      padding: 16px 35px;
-      font-size: 1rem;
+      padding: 14px 30px;
     }
 
     @include mobile {
-      padding: 16px 30px;
-      font-size: 1rem;
+      padding: 14px 25px;
+      font-size: 0.95rem;
       width: 100%;
     }
 
     @include small-mobile {
-      padding: 14px 25px;
+      padding: 12px 20px;
       font-size: 0.9rem;
     }
   }
@@ -676,43 +666,43 @@ nav {
 // Indicateur de scroll
 .scroll-indicator {
   position: absolute;
-  bottom: 40px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
   animation: bounce 2s infinite;
 
   @include mobile {
-    bottom: 25px;
+    bottom: 20px;
   }
 
   .mouse {
-    width: 26px;
-    height: 42px;
+    width: 24px;
+    height: 40px;
     border: 2px solid white;
-    border-radius: 15px;
+    border-radius: 12px;
     position: relative;
 
     @include mobile {
-      width: 22px;
-      height: 38px;
+      width: 20px;
+      height: 35px;
     }
 
     &::before {
       content: '';
       position: absolute;
-      top: 8px;
+      top: 6px;
       left: 50%;
       transform: translateX(-50%);
-      width: 3px;
-      height: 10px;
+      width: 2px;
+      height: 8px;
       background: white;
-      border-radius: 2px;
+      border-radius: 1px;
       animation: scroll 2s infinite;
 
       @include mobile {
-        top: 6px;
-        height: 8px;
+        top: 5px;
+        height: 6px;
       }
     }
   }
@@ -722,7 +712,7 @@ nav {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -747,10 +737,10 @@ nav {
     transform: translateX(-50%) translateY(0);
   }
   40% {
-    transform: translateX(-50%) translateY(-12px);
+    transform: translateX(-50%) translateY(-8px);
   }
   60% {
-    transform: translateX(-50%) translateY(-6px);
+    transform: translateX(-50%) translateY(-4px);
   }
 }
 
@@ -761,11 +751,11 @@ nav {
   }
   50% {
     opacity: 1;
-    transform: translateX(-50%) translateY(12px);
+    transform: translateX(-50%) translateY(8px);
   }
   100% {
     opacity: 0;
-    transform: translateX(-50%) translateY(24px);
+    transform: translateX(-50%) translateY(16px);
   }
 }
 
@@ -773,7 +763,7 @@ nav {
   animation: pulse 3s infinite;
 }
 
-// Particules animées - Desktop et Mobile
+// Particules animées
 .particles {
   position: absolute;
   top: 0;
@@ -793,55 +783,31 @@ nav {
 
   // Particules pour desktop
   @include desktop {
-    &:nth-child(1) { width: 5px; height: 5px; top: 15%; left: 8%; animation-delay: 0s; }
-    &:nth-child(2) { width: 7px; height: 7px; top: 55%; left: 15%; animation-delay: 1s; }
-    &:nth-child(3) { width: 4px; height: 4px; top: 35%; left: 85%; animation-delay: 2s; }
-    &:nth-child(4) { width: 6px; height: 6px; top: 75%; left: 75%; animation-delay: 3s; }
-    &:nth-child(5) { width: 5px; height: 5px; top: 25%; left: 35%; animation-delay: 4s; }
-    &:nth-child(6) { width: 8px; height: 8px; top: 65%; left: 25%; animation-delay: 5s; }
-    &:nth-child(7) { width: 4px; height: 4px; top: 12%; left: 55%; animation-delay: 0.5s; }
-    &:nth-child(8) { width: 6px; height: 6px; top: 45%; left: 92%; animation-delay: 1.5s; }
-    &:nth-child(9) { width: 3px; height: 3px; top: 82%; left: 45%; animation-delay: 2.5s; }
-    &:nth-child(10) { width: 7px; height: 7px; top: 22%; left: 12%; animation-delay: 3.5s; }
+    &:nth-child(1) { width: 4px; height: 4px; top: 20%; left: 10%; animation-delay: 0s; }
+    &:nth-child(2) { width: 6px; height: 6px; top: 60%; left: 20%; animation-delay: 1s; }
+    &:nth-child(3) { width: 3px; height: 3px; top: 40%; left: 80%; animation-delay: 2s; }
+    &:nth-child(4) { width: 5px; height: 5px; top: 80%; left: 70%; animation-delay: 3s; }
+    &:nth-child(5) { width: 4px; height: 4px; top: 30%; left: 40%; animation-delay: 4s; }
   }
 
   // Particules réduites pour mobile
   @include mobile {
     animation: float 8s infinite ease-in-out;
     
-    &:nth-child(1) { width: 3px; height: 3px; top: 20%; left: 10%; animation-delay: 0s; }
-    &:nth-child(2) { width: 4px; height: 4px; top: 60%; left: 20%; animation-delay: 2s; }
-    &:nth-child(3) { width: 2px; height: 2px; top: 40%; left: 80%; animation-delay: 4s; }
-    &:nth-child(4) { width: 3px; height: 3px; top: 80%; left: 70%; animation-delay: 6s; }
+    &:nth-child(1) { width: 3px; height: 3px; top: 15%; left: 15%; animation-delay: 0s; }
+    &:nth-child(2) { width: 4px; height: 4px; top: 65%; left: 25%; animation-delay: 2s; }
+    &:nth-child(3) { width: 2px; height: 2px; top: 45%; left: 85%; animation-delay: 4s; }
   }
 }
 
 @keyframes float {
   0%, 100% {
-    transform: translateY(0) translateX(0) rotate(0deg);
+    transform: translateY(0) translateX(0);
     opacity: 0.7;
   }
-  25% {
-    transform: translateY(-25px) translateX(15px) rotate(90deg);
-    opacity: 1;
-  }
   50% {
-    transform: translateY(-15px) translateX(25px) rotate(180deg);
-    opacity: 0.8;
-  }
-  75% {
-    transform: translateY(-20px) translateX(-15px) rotate(270deg);
-    opacity: 0.9;
-  }
-}
-
-// Styles pour éviter le défilement quand le menu est ouvert
-body.no-scroll {
-  overflow: hidden;
-  
-  @include mobile {
-    position: fixed;
-    width: 100%;
+    transform: translateY(-20px) translateX(10px);
+    opacity: 1;
   }
 }
 
@@ -882,8 +848,8 @@ body.no-scroll {
     color: $light;
   }
   
-  .mobile-menu span {
-    background: $light;
+  .mobile-menu i {
+    color: $light;
   }
   
   nav {
@@ -913,11 +879,19 @@ body.no-scroll {
   .particle,
   .logo i,
   .scroll-indicator,
-  .mobile-menu span,
+  .mobile-menu,
   .nav-link,
-  .hero-btn {
+  .hero-btn,
+  .background-slide {
     animation: none;
     transition: none;
+  }
+  
+  .hero-title,
+  .hero-subtitle,
+  .hero-description,
+  .hero-buttons {
+    animation: none;
   }
 }
 
@@ -933,5 +907,60 @@ body.no-scroll {
   .hero-btn:hover,
   .mobile-menu:hover {
     transform: none;
+  }
+  
+  .nav-link:hover {
+    padding-left: 0;
+    
+    &::before {
+      opacity: 0;
+    }
+  }
+}
+
+// Styles d'accessibilité
+@media (prefers-contrast: high) {
+  .nav-link {
+    font-weight: 700;
+  }
+  
+  .btn {
+    border-width: 3px;
+  }
+}
+
+// Impression
+@media print {
+  header {
+    position: static;
+    background: white !important;
+    box-shadow: none !important;
+  }
+  
+  .hero {
+    margin-top: 0;
+    height: auto;
+    color: black;
+    
+    .hero-background {
+      display: none;
+    }
+    
+    .particles {
+      display: none;
+    }
+    
+    .scroll-indicator {
+      display: none;
+    }
+  }
+  
+  .hero-content {
+    color: black !important;
+    text-shadow: none !important;
+  }
+  
+  .hero-buttons {
+    display: none;
   }
 }

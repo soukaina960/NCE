@@ -4,7 +4,7 @@ $rouge-vif: #E53935;
 $blanc-pur: #FFFFFF;
 $bleu-moyen: #204C8C;
 $gris-fonce: #2C2C2C;
-$bleu-clair: #16284C;
+$bleu-clair: #007BFF;
 
 // Variables dérivées
 $primary-color: $bleu-fonce;
@@ -29,30 +29,32 @@ $background-light: lighten($bleu-fonce, 75%);
   box-shadow: 0 8px 25px rgba($bleu-fonce, 0.1);
 }
 
-@mixin responsive($breakpoint) {
-  @if $breakpoint == desktop {
-    @media (min-width: 1024px) { @content; }
-  }
-  @if $breakpoint == tablet {
-    @media (max-width: 1023px) and (min-width: 768px) { @content; }
-  }
-  @if $breakpoint == mobile {
-    @media (max-width: 767px) { @content; }
-  }
-  @if $breakpoint == small-mobile {
-    @media (max-width: 374px) { @content; }
-  }
+// Breakpoints responsive
+@mixin desktop {
+  @media (min-width: 1024px) { @content; }
+}
+
+@mixin tablet {
+  @media (max-width: 1023px) and (min-width: 768px) { @content; }
+}
+
+@mixin mobile {
+  @media (max-width: 767px) { @content; }
+}
+
+@mixin small-mobile {
+  @media (max-width: 374px) { @content; }
 }
 
 /* Section Contact */
 .contact-section {
-  padding: 80px 0;
+  padding: 60px 0;
   position: relative;
   overflow: hidden;
   background: linear-gradient(135deg, $background-light 0%, lighten($bleu-clair, 45%) 100%);
 
-  // Version PC - Arrière-plan plus élaboré
-  @include responsive(desktop) {
+  // Version PC
+  @include desktop {
     padding: 100px 0;
     
     &::before {
@@ -69,9 +71,9 @@ $background-light: lighten($bleu-fonce, 75%);
     }
   }
 
-  // Version mobile - Arrière-plan simplifié
-  @include responsive(mobile) {
-    padding: 50px 0;
+  // Version mobile
+  @include mobile {
+    padding: 40px 0;
     background: linear-gradient(135deg, $background-light 0%, lighten($bleu-clair, 50%) 100%);
   }
 
@@ -82,11 +84,11 @@ $background-light: lighten($bleu-fonce, 75%);
     position: relative;
     z-index: 2;
 
-    @include responsive(mobile) {
+    @include mobile {
       padding: 0 15px;
     }
 
-    @include responsive(small-mobile) {
+    @include small-mobile {
       padding: 0 10px;
     }
   }
@@ -95,38 +97,42 @@ $background-light: lighten($bleu-fonce, 75%);
 /* En-tête de section */
 .contact-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 
   // Version PC
-  @include responsive(desktop) {
+  @include desktop {
     margin-bottom: 80px;
+  }
+
+  // Version tablette
+  @include tablet {
+    margin-bottom: 60px;
   }
 
   .section-title {
     color: $bleu-fonce;
     font-weight: 800;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-transform: uppercase;
-    letter-spacing: 1px;
 
     // Version PC
-    @include responsive(desktop) {
+    @include desktop {
       font-size: 3.5rem;
       letter-spacing: 2px;
     }
 
     // Version tablette
-    @include responsive(tablet) {
-      font-size: 3rem;
+    @include tablet {
+      font-size: 2.8rem;
     }
 
     // Version mobile
-    @include responsive(mobile) {
+    @include mobile {
       font-size: 2.2rem;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
 
-    @include responsive(small-mobile) {
+    @include small-mobile {
       font-size: 1.8rem;
     }
   }
@@ -134,18 +140,19 @@ $background-light: lighten($bleu-fonce, 75%);
   .section-subtitle {
     color: $bleu-moyen;
     font-weight: 300;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     line-height: 1.5;
 
     // Version PC
-    @include responsive(desktop) {
+    @include desktop {
       font-size: 1.3rem;
+      margin-bottom: 30px;
     }
 
     // Version mobile
-    @include responsive(mobile) {
+    @include mobile {
       font-size: 1.1rem;
-      margin-bottom: 20px;
+      padding: 0 10px;
     }
   }
 
@@ -156,7 +163,7 @@ $background-light: lighten($bleu-fonce, 75%);
     margin: 0 auto;
     border-radius: 2px;
 
-    @include responsive(mobile) {
+    @include mobile {
       width: 60px;
       height: 3px;
     }
@@ -170,19 +177,19 @@ $background-light: lighten($bleu-fonce, 75%);
   align-items: start;
 
   // Version PC - Layout deux colonnes
-  @include responsive(desktop) {
+  @include desktop {
     grid-template-columns: 1fr 1.2fr;
     gap: 60px;
   }
 
   // Version tablette
-  @include responsive(tablet) {
+  @include tablet {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 50px;
   }
 
   // Version mobile
-  @include responsive(mobile) {
+  @include mobile {
     grid-template-columns: 1fr;
     gap: 30px;
   }
@@ -190,8 +197,8 @@ $background-light: lighten($bleu-fonce, 75%);
 
 /* Colonne informations */
 .contact-info {
-  // Version PC - Position sticky pour la navigation
-  @include responsive(desktop) {
+  // Version PC - Position sticky
+  @include desktop {
     position: sticky;
     top: 100px;
   }
@@ -204,18 +211,24 @@ $background-light: lighten($bleu-fonce, 75%);
     border: 1px solid $border-color;
 
     // Version PC
-    @include responsive(desktop) {
+    @include desktop {
       border-radius: 20px;
       padding: 40px;
     }
 
-    @include responsive(mobile) {
+    // Version tablette
+    @include tablet {
+      padding: 35px;
+    }
+
+    // Version mobile
+    @include mobile {
       padding: 25px;
       border-radius: 12px;
     }
 
-    @include responsive(small-mobile) {
-      padding: 20px 15px;
+    @include small-mobile {
+      padding: 20px;
     }
 
     h3 {
@@ -236,12 +249,12 @@ $background-light: lighten($bleu-fonce, 75%);
       }
 
       // Version PC
-      @include responsive(desktop) {
+      @include desktop {
         font-size: 1.8rem;
       }
 
       // Version mobile
-      @include responsive(mobile) {
+      @include mobile {
         font-size: 1.5rem;
       }
     }
@@ -249,19 +262,18 @@ $background-light: lighten($bleu-fonce, 75%);
     .info-description {
       color: $text-dark;
       line-height: 1.6;
-      margin-bottom: 30px;
-      margin-top: 25px;
+      margin: 25px 0 30px 0;
 
       // Version PC
-      @include responsive(desktop) {
+      @include desktop {
         font-size: 1rem;
         margin-bottom: 40px;
       }
 
       // Version mobile
-      @include responsive(mobile) {
+      @include mobile {
         font-size: 0.95rem;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
       }
     }
   }
@@ -275,7 +287,7 @@ $background-light: lighten($bleu-fonce, 75%);
   margin-bottom: 30px;
 
   // Version PC
-  @include responsive(desktop) {
+  @include desktop {
     gap: 25px;
     margin-bottom: 40px;
   }
@@ -291,11 +303,12 @@ $background-light: lighten($bleu-fonce, 75%);
     @include transition;
 
     // Version PC
-    @include responsive(desktop) {
+    @include desktop {
       padding: 20px;
     }
 
-    @include responsive(mobile) {
+    // Version mobile
+    @include mobile {
       padding: 15px;
       gap: 12px;
     }
@@ -304,8 +317,8 @@ $background-light: lighten($bleu-fonce, 75%);
       background: rgba($bleu-fonce, 0.05);
       border-color: $bleu-clair;
       
-      // Version PC seulement - Effets hover
-      @include responsive(desktop) {
+      // Effets hover version PC seulement
+      @include desktop {
         transform: translateY(-2px);
         @include card-shadow;
       }
@@ -316,35 +329,35 @@ $background-light: lighten($bleu-fonce, 75%);
       color: $rouge-vif;
       border-radius: 10px;
       @include flex-center;
-      font-size: 1.1rem;
       flex-shrink: 0;
       @include transition;
 
       // Version PC
-      @include responsive(desktop) {
+      @include desktop {
         width: 50px;
         height: 50px;
         font-size: 1.2rem;
       }
 
       // Version mobile
-      @include responsive(mobile) {
+      @include mobile {
         width: 45px;
         height: 45px;
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
 
-      @include responsive(small-mobile) {
+      @include small-mobile {
         width: 40px;
         height: 40px;
+        font-size: 1rem;
       }
     }
 
     &:hover .method-icon {
       background: rgba($rouge-vif, 0.2);
       
-      // Version PC seulement
-      @include responsive(desktop) {
+      // Animation version PC seulement
+      @include desktop {
         transform: scale(1.1);
       }
     }
@@ -358,12 +371,12 @@ $background-light: lighten($bleu-fonce, 75%);
         margin-bottom: 5px;
 
         // Version PC
-        @include responsive(desktop) {
+        @include desktop {
           font-size: 1.1rem;
         }
 
         // Version mobile
-        @include responsive(mobile) {
+        @include mobile {
           font-size: 1rem;
         }
       }
@@ -375,15 +388,15 @@ $background-light: lighten($bleu-fonce, 75%);
         @include transition;
         display: block;
         margin-bottom: 5px;
-        word-break: break-all;
+        word-break: break-word;
 
         // Version PC
-        @include responsive(desktop) {
+        @include desktop {
           font-size: 1rem;
         }
 
         // Version mobile
-        @include responsive(mobile) {
+        @include mobile {
           font-size: 0.95rem;
         }
 
@@ -398,13 +411,7 @@ $background-light: lighten($bleu-fonce, 75%);
         font-weight: 500;
         margin: 0 0 5px 0;
 
-        // Version PC
-        @include responsive(desktop) {
-          font-size: 1rem;
-        }
-
-        // Version mobile
-        @include responsive(mobile) {
+        @include mobile {
           font-size: 0.95rem;
         }
       }
@@ -412,14 +419,9 @@ $background-light: lighten($bleu-fonce, 75%);
       .method-description {
         color: $text-light;
         margin: 0;
+        font-size: 0.9rem;
 
-        // Version PC
-        @include responsive(desktop) {
-          font-size: 0.9rem;
-        }
-
-        // Version mobile
-        @include responsive(mobile) {
+        @include mobile {
           font-size: 0.85rem;
         }
       }
@@ -433,7 +435,7 @@ $background-light: lighten($bleu-fonce, 75%);
   padding-top: 25px;
 
   // Version PC
-  @include responsive(desktop) {
+  @include desktop {
     padding-top: 30px;
   }
 
@@ -442,13 +444,7 @@ $background-light: lighten($bleu-fonce, 75%);
     font-weight: 600;
     margin-bottom: 15px;
 
-    // Version PC
-    @include responsive(desktop) {
-      font-size: 1.1rem;
-    }
-
-    // Version mobile
-    @include responsive(mobile) {
+    @include mobile {
       font-size: 1rem;
     }
   }
@@ -458,7 +454,7 @@ $background-light: lighten($bleu-fonce, 75%);
     gap: 10px;
 
     // Version PC
-    @include responsive(desktop) {
+    @include desktop {
       gap: 12px;
     }
 
@@ -471,18 +467,18 @@ $background-light: lighten($bleu-fonce, 75%);
       @include transition;
 
       // Version PC
-      @include responsive(desktop) {
+      @include desktop {
         width: 45px;
         height: 45px;
       }
 
       // Version mobile
-      @include responsive(mobile) {
+      @include mobile {
         width: 42px;
         height: 42px;
       }
 
-      @include responsive(small-mobile) {
+      @include small-mobile {
         width: 38px;
         height: 38px;
       }
@@ -491,23 +487,16 @@ $background-light: lighten($bleu-fonce, 75%);
         background: $rouge-vif;
         color: $blanc-pur;
         
-        // Version PC seulement
-        @include responsive(desktop) {
+        // Animation version PC seulement
+        @include desktop {
           transform: translateY(-2px);
         }
         
-        &.fa-whatsapp {
-          background: #25D366;
-        }
-        &.fa-facebook-f {
-          background: #1877F2;
-        }
-        &.fa-instagram {
-          background: #E4405F;
-        }
-        &.fa-linkedin-in {
-          background: #0A66C2;
-        }
+        // Couleurs spécifiques aux réseaux sociaux
+        &.fa-whatsapp:hover { background: #25D366; }
+        &.fa-facebook-f:hover { background: #1877F2; }
+        &.fa-instagram:hover { background: #E4405F; }
+        &.fa-linkedin-in:hover { background: #0A66C2; }
       }
     }
   }
@@ -523,18 +512,19 @@ $background-light: lighten($bleu-fonce, 75%);
     border: 1px solid $border-color;
 
     // Version PC
-    @include responsive(desktop) {
+    @include desktop {
       border-radius: 20px;
       padding: 40px;
     }
 
-    @include responsive(mobile) {
+    // Version mobile
+    @include mobile {
       padding: 25px;
       border-radius: 12px;
     }
 
-    @include responsive(small-mobile) {
-      padding: 20px 15px;
+    @include small-mobile {
+      padding: 20px;
     }
 
     h3 {
@@ -555,12 +545,12 @@ $background-light: lighten($bleu-fonce, 75%);
       }
 
       // Version PC
-      @include responsive(desktop) {
+      @include desktop {
         font-size: 1.8rem;
       }
 
       // Version mobile
-      @include responsive(mobile) {
+      @include mobile {
         font-size: 1.5rem;
       }
     }
@@ -568,18 +558,11 @@ $background-light: lighten($bleu-fonce, 75%);
     .form-description {
       color: $text-dark;
       line-height: 1.6;
-      margin-bottom: 25px;
-      margin-top: 25px;
+      margin: 25px 0 30px 0;
 
-      // Version PC
-      @include responsive(desktop) {
-        font-size: 1rem;
-        margin-bottom: 30px;
-      }
-
-      // Version mobile
-      @include responsive(mobile) {
+      @include mobile {
         font-size: 0.95rem;
+        margin-bottom: 25px;
       }
     }
   }
@@ -588,10 +571,9 @@ $background-light: lighten($bleu-fonce, 75%);
 /* Styles du formulaire */
 .form-group {
   margin-bottom: 20px;
-  position: relative;
 
   // Version PC
-  @include responsive(desktop) {
+  @include desktop {
     margin-bottom: 25px;
   }
 
@@ -601,14 +583,8 @@ $background-light: lighten($bleu-fonce, 75%);
     font-weight: 600;
     margin-bottom: 8px;
 
-    // Version PC
-    @include responsive(desktop) {
+    @include mobile {
       font-size: 0.9rem;
-    }
-
-    // Version mobile
-    @include responsive(mobile) {
-      font-size: 0.85rem;
     }
   }
 }
@@ -618,13 +594,13 @@ $background-light: lighten($bleu-fonce, 75%);
   gap: 15px;
 
   // Version PC - Deux colonnes
-  @include responsive(desktop) {
+  @include desktop {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
   }
 
   // Version mobile - Une colonne
-  @include responsive(mobile) {
+  @include mobile {
     grid-template-columns: 1fr;
   }
 }
@@ -636,16 +612,16 @@ $background-light: lighten($bleu-fonce, 75%);
   background: $blanc-pur;
   border: 1px solid $border-color;
   border-radius: 8px;
-  padding: 12px 16px;
+  padding: 14px 16px;
   color: $text-dark;
   font-size: 1rem;
   @include transition;
   font-family: inherit;
 
-  // Version mobile
-  @include responsive(mobile) {
-    padding: 10px 14px;
-    font-size: 16px; // Évite le zoom sur iOS
+  // Version mobile - Empêcher le zoom iOS
+  @include mobile {
+    font-size: 16px;
+    padding: 12px 14px;
   }
 
   &:focus {
@@ -666,6 +642,10 @@ $background-light: lighten($bleu-fonce, 75%);
 .form-textarea {
   resize: vertical;
   min-height: 120px;
+
+  @include mobile {
+    min-height: 100px;
+  }
 }
 
 /* Messages d'erreur */
@@ -683,8 +663,7 @@ $background-light: lighten($bleu-fonce, 75%);
   flex-direction: column;
   gap: 10px;
 
-  // Version PC
-  @include responsive(desktop) {
+  @include desktop {
     gap: 12px;
   }
 
@@ -699,8 +678,7 @@ $background-light: lighten($bleu-fonce, 75%);
     border-radius: 8px;
     @include transition(background);
 
-    // Version mobile
-    @include responsive(mobile) {
+    @include mobile {
       padding: 8px;
     }
 
@@ -762,22 +740,23 @@ $background-light: lighten($bleu-fonce, 75%);
     overflow: hidden;
 
     // Version PC
-    @include responsive(desktop) {
+    @include desktop {
       padding: 16px 40px;
       font-size: 1rem;
     }
 
     // Version mobile
-    @include responsive(mobile) {
+    @include mobile {
       padding: 14px 30px;
       font-size: 1rem;
+      min-height: 50px;
     }
 
     &:hover:not(:disabled) {
       background: darken($rouge-vif, 10%);
       
-      // Version PC seulement
-      @include responsive(desktop) {
+      // Animation version PC seulement
+      @include desktop {
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba($rouge-vif, 0.3);
       }
@@ -787,7 +766,6 @@ $background-light: lighten($bleu-fonce, 75%);
       background: $text-light;
       color: rgba($blanc-pur, 0.7);
       cursor: not-allowed;
-      transform: none;
     }
 
     &.loading {
@@ -852,26 +830,6 @@ $background-light: lighten($bleu-fonce, 75%);
   }
 }
 
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba($rouge-vif, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba($rouge-vif, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba($rouge-vif, 0);
-  }
-}
-
-/* Éléments avec animation de pulse - Version PC seulement */
-@include responsive(desktop) {
-  .contact-method:hover .method-icon,
-  .submit-btn:not(:disabled) {
-    animation: pulse 2s infinite;
-  }
-}
-
 /* Mode contraste élevé pour l'accessibilité */
 @media (prefers-contrast: high) {
   .contact-link,
@@ -908,7 +866,6 @@ $background-light: lighten($bleu-fonce, 75%);
   .form-textarea {
     transition: none;
     transform: none;
-    animation: none;
   }
 
   .status-message {
@@ -928,11 +885,6 @@ $background-light: lighten($bleu-fonce, 75%);
   .form-card h3,
   .method-info h4 {
     color: $bleu-fonce !important;
-  }
-
-  .contact-link,
-  .contact-text {
-    color: $bleu-moyen !important;
   }
 
   .info-card,
@@ -961,42 +913,38 @@ $background-light: lighten($bleu-fonce, 75%);
   .contact-header {
     margin-bottom: 30px;
   }
-}
-
-/* Support des écrans haute résolution */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .contact-section::before {
-    transform: scale(1.1);
+  
+  .form-textarea {
+    min-height: 80px;
   }
 }
 
 /* Améliorations spécifiques mobile */
-@include responsive(mobile) {
-  // Empêcher le zoom sur les inputs iOS
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  select,
-  textarea {
-    font-size: 16px;
-  }
-  
+@include mobile {
   // Améliorer l'espacement tactile
   .contact-method,
   .social-link,
-  .submit-btn {
+  .submit-btn,
+  .radio-label {
     min-height: 44px;
   }
   
-  // Optimiser l'espacement global
+  // Optimiser l'espacement
   .contact-methods {
     gap: 15px;
+  }
+  
+  // Ajuster les polices pour mobile
+  .form-input,
+  .form-select,
+  .form-textarea {
+    font-size: 16px; // Évite le zoom sur iOS
   }
 }
 
 /* Améliorations spécifiques PC */
-@include responsive(desktop) {
-  // Effets de hover plus élaborés
+@include desktop {
+  // Effets de hover élaborés
   .info-card,
   .form-card {
     &:hover {
@@ -1005,9 +953,40 @@ $background-light: lighten($bleu-fonce, 75%);
     }
   }
   
-  // Meilleure lisibilité pour les longs textes
-  .info-description,
-  .form-description {
-    line-height: 1.7;
+  // Animation pulse pour les éléments interactifs
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba($rouge-vif, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba($rouge-vif, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba($rouge-vif, 0);
+    }
+  }
+  
+  .contact-method:hover .method-icon,
+  .submit-btn:not(:disabled) {
+    animation: pulse 2s infinite;
+  }
+}
+
+/* Correction viewport mobile */
+@viewport {
+  width: device-width;
+  zoom: 1.0;
+}
+
+/* Support tactile amélioré */
+@media (hover: none) and (pointer: coarse) {
+  .contact-method:hover,
+  .social-link:hover,
+  .submit-btn:hover {
+    transform: none;
+  }
+  
+  .contact-method:hover .method-icon {
+    transform: none;
   }
 }
