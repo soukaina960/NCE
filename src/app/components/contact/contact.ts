@@ -1,19 +1,28 @@
+// contact.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { ContactService, ContactFormData } from '../../components/service/contact.service';
 
 @Component({
   selector: 'app-contact',
-  standalone: true, // ← Ajoutez cette ligne
-  imports: [CommonModule, ReactiveFormsModule], // ← Importez les modules nécessaires
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './contact.html',
   styleUrl: './contact.scss',
+  providers: [ContactService] // Ajoutez le service ici
 })
 export class Contact implements OnInit {
   contactForm: FormGroup;
   isSubmitting = false;
+  submitMessage = '';
+  messageType: 'success' | 'error' | '' = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private contactService: ContactService
+  ) {
     this.contactForm = this.createForm();
   }
 
@@ -35,16 +44,28 @@ export class Contact implements OnInit {
   onSubmit(): void {
     if (this.contactForm.valid) {
       this.isSubmitting = true;
+      this.submitMessage = '';
       
-      console.log('Formulaire soumis:', this.contactForm.value);
+      const formData: ContactFormData = this.contactForm.value;
       
-      setTimeout(() => {
-        this.isSubmitting = false;
-        alert('Votre demande a été envoyée avec succès ! Nous vous recontacterons rapidement.');
-        this.contactForm.reset();
-      }, 2000);
+      this.contactService.submitContact(formData).subscribe({
+        next: (response) => {
+          this.isSubmitting = false;
+          this.messageType = 'success';
+          this.submitMessage = response.message || 'Votre demande a été envoyée avec succès ! Nous vous recontacterons rapidement.';
+          this.contactForm.reset();
+        },
+        error: (error) => {
+          this.isSubmitting = false;
+          this.messageType = 'error';
+          this.submitMessage = error.error?.message || 'Une erreur s\'est produite lors de l\'envoi. Veuillez réessayer.';
+          console.error('Erreur lors de l\'envoi:', error);
+        }
+      });
     } else {
       this.markFormGroupTouched(this.contactForm);
+      this.messageType = 'error';
+      this.submitMessage = 'Veuillez corriger les erreurs dans le formulaire.';
     }
   }
 
