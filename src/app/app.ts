@@ -66,7 +66,8 @@ export class App implements OnInit, OnDestroy {
     this.isAuthPage.set(
       currentRoute === '/connexion' || 
       currentRoute === '/inscription' ||
-      currentRoute === '/admin'
+      currentRoute === '/admin'||
+      currentRoute === '/client/dashboard'
     );
   }
 
