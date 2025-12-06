@@ -48,24 +48,7 @@ export const routes: Routes = [
   },
 
   // Sous-routes de l'espace client
-  {
-    path: 'client/profil',
-    loadComponent: () => import('./client/profile/profile.component').then(m => m.ClientProfileComponent),
-    canActivate: [ClientAuthGuard],
-    data: { title: 'Mon Profil - ElectroSolution' }
-  },
-  {
-    path: 'client/commandes',
-    loadComponent: () => import('./client/orders/orders.component').then(m => m.ClientOrdersComponent),
-    canActivate: [ClientAuthGuard],
-    data: { title: 'Mes Commandes - ElectroSolution' }
-  },
-  {
-    path: 'client/parametres',
-    loadComponent: () => import('./client/settings/settings.component').then(m => m.ClientSettingsComponent),
-    canActivate: [ClientAuthGuard],
-    data: { title: 'Paramètres - ElectroSolution' }
-  },
+
 
   // Redirection pour les routes inconnues
   { 
